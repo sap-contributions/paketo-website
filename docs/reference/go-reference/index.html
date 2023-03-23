@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -342,6 +366,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/reference/go-reference/" class="docs-menu__item docs-menu__link docs-menu__link--active">
                 
                 <span>Go Buildpack</span>
@@ -464,7 +498,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul>
         <li><a href="#gopath"><code>GOPATH</code></a></li>
         <li><a href="#gocache"><code>GOCACHE</code></a></li>
-        <li><a href="#depcachedir"><code>DEPCACHEDIR</code></a></li>
       </ul>
     </li>
     <li><a href="#components">Components</a></li>
@@ -500,7 +533,6 @@ notes</a>.</p>
 your application:</p>
 <ul>
 <li>The built-in <a href="https://github.com/golang/go/wiki/Modules">Go modules</a> feature,</li>
-<li>The <a href="https://github.com/golang/dep">Dep</a> tool</li>
 <li>No package manager</li>
 </ul>
 <p>Support for each of these package managers is mutually-exclusive. You can find
@@ -515,17 +547,6 @@ code contains a <code>go.mod</code> file. During the build phase, the <code>go-m
 https://github.com/paketo-buildpacks/go-mod-vendor">buildpack</a> checks to see
 if the application requires any external modules and if it does, runs the <code>go mod vendor</code> command for your app. The resulting <code>vendor</code> directory will exist
 in the app&rsquo;s root directory and will contain all packages required for the build.</p>
-<h4 id="package-management-with-dep" class="markup-heading">
-    <a class="markup-heading__link" href="#package-management-with-dep">
-        Package Management with Dep
-    </a>
-</h4><p>Dep is an alternative option to Go Modules for package management in Go apps. The buildpack will vendor dependencies using <code>dep</code> if the app source code
-contains a <code>Gopkg.toml</code> file. (For more information about this file, see the <code>dep</code>
-<a href="https://golang.github.io/dep/docs/Gopkg.toml.html">documentation</a>. There may be an optional <code>Gopkg.lock</code> file that outlines specific versions of the dependencies to be packaged. During its build
-phase, the <code>dep-ensure</code>
-<a href="
-https://github.com/paketo-buildpacks/dep-ensure">buildpack</a> runs the <code>dep ensure</code> command. The resulting <code>vendor</code> directory will exist in
-the app&rsquo;s root directory and will contain all the packages required for the build.</p>
 <h4 id="no-package-management" class="markup-heading">
     <a class="markup-heading__link" href="#no-package-management">
         No Package Management
@@ -555,7 +576,7 @@ variable and its impact on your app.</p>
 source code and binaries. The Go CNB takes care of setting the <code>GOPATH</code> for
 you, depending on your app and which package management option your app uses.</p>
 <ul>
-<li>Set by: <code>go-mod-vendor</code>, <code>dep-ensure</code> and <code>go-build</code></li>
+<li>Set by: <code>go-mod-vendor</code> and <code>go-build</code></li>
 <li>Phases: <code>build</code></li>
 <li>Value: path to Go workspace</li>
 </ul>
@@ -568,15 +589,6 @@ the image so that between builds of the app, the dependencies don&rsquo;t have t
 redownloaded. Essentially, the <code>GOPATH</code> is being used to tell the <code>go mod vendor</code> command where to look for dependencies. It&rsquo;s worth noting that in this
 case, the <code>GOPATH</code> isn&rsquo;t persisted beyond vendoring the dependencies and gets
 overwritten by a subsequent buildpack.</p>
-<h4 id="dep" class="markup-heading">
-    <a class="markup-heading__link" href="#dep">
-        Dep
-    </a>
-</h4><p>When using the Dep tool, the Go CNB sets the <code>GOPATH</code> to a temporary directory.
-The app source code gets copied into the <code>GOPATH</code> location so that the <code>dep ensure</code> command knows where to look for the source code, as well as where to
-put the <code>vendor</code> directory. The <code>vendor</code> directory that is created is then
-copied to the original source code directory. The <code>GOPATH</code> in this case is used
-to run <code>dep ensure</code>, but does not persist beyond that step.</p>
 <h4 id="build" class="markup-heading">
     <a class="markup-heading__link" href="#build">
         Build
@@ -596,18 +608,6 @@ subsequent builds. It gets set to a cached layer in  the image by the
 <li>Set by: <code>go-build</code></li>
 <li>Phases: <code>build</code></li>
 <li>Value: Go Cache layer path</li>
-</ul>
-<h3 id="depcachedir" class="markup-heading">
-    <a class="markup-heading__link" href="#depcachedir">
-        <code>DEPCACHEDIR</code>
-    </a>
-</h3><p><code>DEPCACHEDIR</code> specifies where upstream dependency source code is stored for use
-by the Dep tool. The <code>dep-ensure</code> buildpack sets this variable to the path of a
-cache layer in the app image.</p>
-<ul>
-<li>Set by: <code>dep-ensure</code></li>
-<li>Phases: <code>build</code></li>
-<li>Value: Dep Cache layer path</li>
 </ul>
 <h2 id="components" class="markup-heading">
     <a class="markup-heading__link" href="#components">
@@ -639,18 +639,6 @@ https://github.com/paketo-buildpacks/go-dist">Paketo Go Dist Buildpack</a></td>
 https://github.com/paketo-buildpacks/go-mod-vendor">Paketo Go Mod Vendor Buildpack</a></td>
 <td>Optional</td>
 <td>Installs app Go modules</td>
-</tr>
-<tr>
-<td><a href="
-https://github.com/paketo-buildpacks/dep">Paketo Dep Buildpack</a></td>
-<td>Optional</td>
-<td>Installs <code>dep</code></td>
-</tr>
-<tr>
-<td><a href="
-https://github.com/paketo-buildpacks/dep-ensure">Paketo Dep Ensure Buildpack</a></td>
-<td>Optional</td>
-<td>Uses <code>dep</code> to install app dependencies</td>
 </tr>
 <tr>
 <td><a href="
@@ -701,6 +689,8 @@ data.  See <a href="https://paketo.io/docs/howto/go/#extract-go-module-informati
 includes limited support for the <a href="https://paketo.io/docs/concepts/sbom/#paketo-specific-sbom-format">Paketo-specific</a> SBOM format.
 This SBOM does not include Go module information.</p>
 <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
             </div>
             
@@ -713,7 +703,7 @@ This SBOM does not include Go module information.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -730,7 +720,6 @@ This SBOM does not include Go module information.</p>
       <ul>
         <li><a href="#gopath"><code>GOPATH</code></a></li>
         <li><a href="#gocache"><code>GOCACHE</code></a></li>
-        <li><a href="#depcachedir"><code>DEPCACHEDIR</code></a></li>
       </ul>
     </li>
     <li><a href="#components">Components</a></li>
@@ -781,7 +770,7 @@ This SBOM does not include Go module information.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

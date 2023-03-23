@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -335,6 +359,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <a href="/docs/reference/dotnet-core-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>.NET Core Buildpack</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
             </a>
         </li>
     
@@ -476,6 +510,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </li>
     <li><a href="#build-an-app-with-a-webserver">Build an App With a Webserver</a></li>
     <li><a href="#build-a-rails-app">Build a Rails App</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
+    <li><a href="#access-the-software-bill-of-materials">Access the software bill of materials</a></li>
   </ul>
 </nav>
 </div>
@@ -594,7 +630,7 @@ set the <code>$BP_MRI_VERSION</code> environment variable.</p>
     <a class="markup-heading__link" href="#override-the-detected-bundler-version">
         Override the Detected Bundler Version
     </a>
-</h2><p>The Paketo Ruby Buildpack will also attempt to automatically detecy the correct
+</h2><p>The Paketo Ruby Buildpack will also attempt to automatically detect the correct
 version of Bundler to use based on the default version in the
 <a href="https://github.com/paketo-buildpacks/bundler/blob/main/buildpack.toml"><code>buildpack.toml</code></a> file. It is possible to override this version
 by setting the <code>BP_BUNDLER_VERSION</code> environment variable at build time, or via
@@ -679,6 +715,7 @@ RubyGems index. Check out the Ruby reference <a href="https://paketo.io/docs/ref
 directory inside app source code, such as <code>custom_dir/custom_cache</code>. In order
 to tell the buildpack where to look for the gems, create a <code>.bundle/config</code>
 file and set the <code>BUNDLE_CACHE_PATH</code>.</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">---
 BUNDLE_CACHE_PATH: &#34;custom_dir/custom_cache&#34;
@@ -686,6 +723,7 @@ BUNDLE_CACHE_PATH: &#34;custom_dir/custom_cache&#34;
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
+<!-- raw HTML omitted -->
 <h2 id="build-an-app-image-that-runs-a-rake-task" class="markup-heading">
     <a class="markup-heading__link" href="#build-an-app-image-that-runs-a-rake-task">
         Build an App Image That Runs a Rake Task
@@ -744,6 +782,30 @@ you can build it with the Paketo Ruby Buildpack.</p>
 <li>Include an <code>app/assets</code> directory in your app source code</li>
 <li>Add the <code>rails</code> gem to your <code>Gemfile</code></li>
 </ol>
+<h2 id="enable-debug-logging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-debug-logging">
+        Enable <code>DEBUG</code> logging
+    </a>
+</h2><p>Users of the Ruby buildpack can access extra debug logs during the image build process by setting the <code>BP_LOG_LEVEL</code>
+environment variable to <code>DEBUG</code> at build time. Additional debug logs will
+appear in build logs if the relevant buildpacks have debug log lines.
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/ruby \
+  --env BP_LOG_LEVEL=DEBUG
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
+<h2 id="access-the-software-bill-of-materials" class="markup-heading">
+    <a class="markup-heading__link" href="#access-the-software-bill-of-materials">
+        Access the software bill of materials
+    </a>
+</h2><p>The Ruby buildpack includes support for the software bill of materials (SBOM).
+Check out the <a href="https://paketo.io/docs/howto/sbom/">SBOM how-to documentation</a> for details on how to
+access the SBOM supplied by the buildpacks.</p>
+<p>SBOMs will be generated for applications which leverage Bundler.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 
             </div>
@@ -757,7 +819,7 @@ you can build it with the Paketo Ruby Buildpack.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -786,6 +848,8 @@ you can build it with the Paketo Ruby Buildpack.</p>
     </li>
     <li><a href="#build-an-app-with-a-webserver">Build an App With a Webserver</a></li>
     <li><a href="#build-a-rails-app">Build a Rails App</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
+    <li><a href="#access-the-software-bill-of-materials">Access the software bill of materials</a></li>
   </ul>
 </nav>
 </div>
@@ -832,7 +896,7 @@ you can build it with the Paketo Ruby Buildpack.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

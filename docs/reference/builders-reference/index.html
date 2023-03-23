@@ -11,17 +11,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PN39N8V');</script>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>How to Create a Custom Stack - Paketo Buildpacks</title>
+<title>Paketo Builders Reference - Paketo Buildpacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
 
 
 <meta name="og:site_name" content="Paketo Buildpacks">
-<meta name="og:title" content="How to Create a Custom Stack">
-<meta name="og:url" content="https://paketo.io/docs/howto/create-custom-stack/">
+<meta name="og:title" content="Paketo Builders Reference">
+<meta name="og:url" content="https://paketo.io/docs/reference/builders-reference/">
 <meta name="twitter:title" content="Paketo Buildpacks" />
-<meta name="twitter:url" content="https://paketo.io/docs/howto/create-custom-stack/" />
+<meta name="twitter:url" content="https://paketo.io/docs/reference/builders-reference/" />
 <meta name="twitter:card" content="" />
 
 
@@ -108,18 +108,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
         <li class="docs-menu__item docs-menu__parent">
             
-            <div class="docs-menu__section-header docs-menu__section-header--opened">
+            <div class="docs-menu__section-header ">
                 
                 <span>How To</span>
-                <button class="expander-button expander-button--opened docs-menu__expander-button">
-                    <svg class="expander-button__triangle expander-button__triangle--opened" width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button class="expander-button  docs-menu__expander-button">
+                    <svg class="expander-button__triangle " width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.140625" width="37.0257" height="34" rx="8" fill="#888888" fill-opacity="0.25"/>
                         <path d="M28.1604 13H8.14648L18.6538 22.5L28.1604 13Z" fill="#FEFCFC"/>
                         </svg>
                 </button>
             </div>
             
-            <ul class="docs-menu__children-list docs-menu__children-list--opened">
+            <ul class="docs-menu__children-list ">
                 
                     
     
@@ -254,7 +254,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
-            <a href="/docs/howto/create-custom-stack/" class="docs-menu__item docs-menu__link docs-menu__link--active">
+            <a href="/docs/howto/create-custom-stack/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Create a Custom Stack</span>
             </a>
@@ -330,18 +330,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
         <li class="docs-menu__item docs-menu__parent">
             
-            <div class="docs-menu__section-header ">
+            <div class="docs-menu__section-header docs-menu__section-header--opened">
                 
                 <span>Reference</span>
-                <button class="expander-button  docs-menu__expander-button">
-                    <svg class="expander-button__triangle " width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button class="expander-button expander-button--opened docs-menu__expander-button">
+                    <svg class="expander-button__triangle expander-button__triangle--opened" width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.140625" width="37.0257" height="34" rx="8" fill="#888888" fill-opacity="0.25"/>
                         <path d="M28.1604 13H8.14648L18.6538 22.5L28.1604 13Z" fill="#FEFCFC"/>
                         </svg>
                 </button>
             </div>
             
-            <ul class="docs-menu__children-list ">
+            <ul class="docs-menu__children-list docs-menu__children-list--opened">
                 
                     
     
@@ -366,7 +366,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
-            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link docs-menu__link--active">
                 
                 <span>Builders</span>
             </a>
@@ -473,7 +473,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="docs-body">
         <div class="docs-body__container">
             
-  <a href="https://github.com/paketo-buildpacks/paketo-website/edit/main/content/docs/howto/create-custom-stack.md" target="_blank" class="github-edit" style="text-decoration:none">
+  <a href="https://github.com/paketo-buildpacks/paketo-website/edit/main/content/docs/reference/builders-reference.md" target="_blank" class="github-edit" style="text-decoration:none">
     <div class="github-edit__content">
       <div class="github-edit__logo-container">
         <img class="github-edit__logo" src="/images/github-mark.png">
@@ -482,236 +482,126 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 </a>
 
-            <h1 id="title">How to Create a Custom Stack</h1>
+            <h1 id="title">Paketo Builders Reference</h1>
             
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--mobile">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#preface">Preface</a></li>
-    <li><a href="#create-a-custom-stack-image-based-off-of-a-paketo-stack">Create a custom stack image based off of a Paketo Stack</a>
-      <ul>
-        <li><a href="#using-docker-build">Using <code>docker build</code></a></li>
-        <li><a href="#using-jam-create-stack">Using <code>jam create-stack</code></a></li>
-      </ul>
-    </li>
-    <li><a href="#create-a-custom-builder-with-the-custom-stack">Create a custom builder with the custom stack</a></li>
+    <li><a href="#available-paketo-builders">Available Paketo Builders</a></li>
   </ul>
 </nav>
 </div>
 
             <div class="docs-body__markdown">
-                <h2 id="preface" class="markup-heading">
-    <a class="markup-heading__link" href="#preface">
-        Preface
+                <p>This reference documentation enumerates and briefly describes the available Paketo builders. For
+explanations of how to use the builders for several common use-cases, see the
+Paketo Builders How To <a href="https://paketo.io/docs/howto/builders/">documentation</a>.</p>
+<h2 id="available-paketo-builders" class="markup-heading">
+    <a class="markup-heading__link" href="#available-paketo-builders">
+        Available Paketo Builders
     </a>
-</h2><p>This documentation explains how to create a custom stack based off of the
-existing Paketo stacks. Check out the <a href="https://paketo.io/docs/concepts/stacks/">stacks concept page</a>
-for more information about what a stack is and the Paketo offerings.</p>
-<p><strong>It&rsquo;s recommended to use an existent Paketo stack offering, over creating a custom
-stack</strong> in order to leverage the full range of Paketo security patching
-and compliance standards.</p>
-<p>In some cases, a custom stack image may be useful for users who may need an
-extra system library or user ID, for example. The Cloud Native Buildpacks
-project already has documentation for <a href="https://buildpacks.io/docs/operator-guide/create-a-stack/"><strong>creating a stack from
-scratch</strong></a>, but for
-some Paketo users <strong>it may be simpler and less error-prone to build upon the
-stack we already provide</strong>. It’s recommended to read the CNB documentation
-regardless, because there are a lot of details and explanations there that
-still apply.</p>
-<h2 id="create-a-custom-stack-image-based-off-of-a-paketo-stack" class="markup-heading">
-    <a class="markup-heading__link" href="#create-a-custom-stack-image-based-off-of-a-paketo-stack">
-        Create a custom stack image based off of a Paketo Stack
-    </a>
-</h2><h3 id="using-docker-build" class="markup-heading">
-    <a class="markup-heading__link" href="#using-docker-build">
-        Using <code>docker build</code>
-    </a>
-</h3><p>This guide assumes you know the basics of stacks from the <a href="https://paketo.io/docs/concepts/stacks/">stacks concept page</a>.</p>
-<ol>
-<li>Create a <code>Dockerfile</code> and define the <code>base</code> image as one of the Paketo stacks. For example:
-<div class="copyable">
-    <pre class="copyable__code">FROM paketobuildpacks:full-cnb as base
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></li>
-</ol>
-<p>There are two different options for each of the three (tiny, base, full) stacks you can use.</p>
-<ul>
-<li>The first option is the stack without the <code>-cnb</code> suffix, which can be used as a base image
-without any CNB metadata added at all. Ex. <code>docker.io/paketobuildpacks/run:full</code></li>
-<li>The second option is to use the stack with the <code>-cnb</code> suffix at the end.
-This will be the stack that contains <a href="https://github.com/buildpacks/spec/blob/main/platform.md#stacks">buildpack specific
-metadata</a>
-already added, and is based off of the non-CNB stack image. Ex.
-<code>docker.io/paketobuildpacks/run:full-cnb</code></li>
-</ul>
-<p>Check out the <code>bionic</code> and <code>tiny</code> directories in
-<a href="https://github.com/paketo-buildpacks/stacks">github.com/paketo-buildpacks/stacks</a>
-repo to view the Dockerfiles we have defined for both the base image and CNB images.</p>
-<ol start="2">
-<li>
-<p>Add your desired custom stack change to the Dockerfile such as labels,
-environment variables, and/or packages. There are examples in the <a href="https://buildpacks.io/docs/operator-guide/create-a-stack/">CNB
-documentation</a> .
-Note that the changes need to abide by the CNB spec. For example, setting
-the <code>CNB_USER_ID</code> to root isn’t allowed.</p>
-</li>
-<li>
-<p>Build the stack image with  <code>docker build . -t &lt;stack-name&gt;-&lt;run or build&gt;:&lt;tag&gt; --target &lt;target&gt;</code> for both the build and run images.</p>
-</li>
-<li>
-<p>Push the stack images to a registry with <code>docker push</code></p>
-</li>
-</ol>
-<h3 id="using-jam-create-stack" class="markup-heading">
-    <a class="markup-heading__link" href="#using-jam-create-stack">
-        Using <code>jam create-stack</code>
-    </a>
-</h3><h4 id="prerequisites" class="markup-heading">
-    <a class="markup-heading__link" href="#prerequisites">
-        Prerequisites
-    </a>
-</h4><p>You will need the following tools installed on your machine:</p>
-<!-- raw HTML omitted -->
-<ul>
-<li><a href="https://github.com/paketo-buildpacks/jam">jam</a></li>
-<li><a href="https://github.com/containers/skopeo">skopeo</a></li>
-</ul>
-<!-- raw HTML omitted -->
-<ol>
-<li>
-<p>Create a Dockerfile for the build and run stack images, as in steps 1 and 2 above.</p>
-</li>
-<li>
-<p>Create a <code>stack.toml</code>, which should resemble the following:</p>
-</li>
-</ol>
-<!-- raw HTML omitted -->
-<div class="copyable">
-    <pre class="copyable__code">id = &#34;io.paketo.stacks.tiny&#34;
-
-platforms = [&#34;linux/amd64&#34;]
-
-[build] 
-  dockerfile = &#34;&lt;path/to/build/Dockerfile&gt;&#34;
-  gid = 1000
-  shell = &#34;/bin/bash&#34;
-  uid = 1000
-
-  [build.args]
-    sources = &#34;&#34;&#34;
-    deb http://archive.ubuntu.com/ubuntu bionic main universe multiverse
-    deb http://archive.ubuntu.com/ubuntu bionic-updates main universe multiverse
-    deb http://archive.ubuntu.com/ubuntu bionic-security main universe multiverse
-    &#34;&#34;&#34;
-
-    # List of packages which should be included in the stack build image
-    packages = &#34;&#34;&#34;\
-    &lt;some-package&gt; \
-    &lt;another-package&gt; \
-    &#34;&#34;&#34;
-
-[run]
-  dockerfile = &#34;&lt;path/to/run/Dockerfile&gt;&#34;
-  gid = 1000
-  shell = &#34;/sbin/nologin&#34;
-  uid = 1000
-
-  [run.args]
-    sources = &#34;&#34;&#34;
-    deb http://archive.ubuntu.com/ubuntu bionic main universe multiverse
-    deb http://archive.ubuntu.com/ubuntu bionic-updates main universe multiverse
-    deb http://archive.ubuntu.com/ubuntu bionic-security main universe multiverse
-    &#34;&#34;&#34;
-
-    # List of packages which should be included in the stack run image
-    packages = &#34;&#34;&#34;\
-    &lt;some-package&gt; \
-    &lt;another-package&gt; \
-    &#34;&#34;&#34;
-
-[deprecated]
-  legacy-sbom = true
-  mixins = true
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div>
-<!-- raw HTML omitted -->
-<ol start="3">
-<li>Create the stack with the <code>jam</code> CLI:</li>
-</ol>
-<!-- raw HTML omitted -->
-<div class="copyable">
-    <pre class="copyable__code">jam create-stack --config stack.toml --build-output &lt;name&gt;.oci --run-output &lt;name&gt;.oci
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div>
-<!-- raw HTML omitted -->
-<ol start="4">
-<li>
-<p>Use <code>skopeo</code> to copy the OCI archives
-to the desired registry:</p>
-<p>To copy the archives to a remote registry:</p>
-</li>
-</ol>
-<!-- raw HTML omitted -->
-<div class="copyable">
-    <pre class="copyable__code">skopeo copy oci-archive:///&lt;path/to/oci/archive/&gt; docker://&lt;registry-image-location&gt;:&lt;tag&gt;
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div>
-<!-- raw HTML omitted -->
-<p>To copy the archives to your local Docker daemon:</p>
-<!-- raw HTML omitted -->
-<div class="copyable">
-    <pre class="copyable__code">skopeo copy oci-archive:///&lt;path/to/oci/archive&gt; docker-daemon:&lt;stack-image-name&gt;:&lt;tag&gt;
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div>
-<!-- raw HTML omitted -->
-<h2 id="create-a-custom-builder-with-the-custom-stack" class="markup-heading">
-    <a class="markup-heading__link" href="#create-a-custom-builder-with-the-custom-stack">
-        Create a custom builder with the custom stack
-    </a>
-</h2><p>Check out the <a href="https://paketo.io/docs/concepts/stacks/">builder documentation</a> for details on
-builders.</p>
-<ol>
-<li>Clone the builder you want to use, and modify the <code>builder.toml</code> file. For
-example, if you have built a custom stack based off of the Paketo Full
-stack, you will want to add it to the <a href="https://github.com/paketo-buildpacks/full-builder">Full
-builder</a> builder.toml
-file. Modify the bottom <code>[stack]</code> section to point to the registry location
-of the build and run images you have pushed to a registry.  The <code>id</code> should
-match the stack ID if you specified one in the Dockerfile, or in the base
-image you used. It will be <code>io.buildpacks.stacks.bionic</code> if your base image
-was one of the CNB stack images. This ID implies compatibility with the
-official <code>io.buildpacks.stacks.bionic</code> stack.</li>
-<li>Create the builder with the pack CLI.
-<div class="copyable">
-    <pre class="copyable__code">pack builder create &lt;builder-name&gt; —config &lt;path to builder.toml&gt;
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></li>
-<li>Ensure the buildpacks of interest support the wildcard (“*”) stack or
-support the stack ID you provided in the <code>builder.toml</code> by checking the buildpack <code>stacks</code> section. For example, the
-<a href="https://github.com/paketo-buildpacks/node-engine/blob/8f9743093c6696c365baf1739622889c61280bff/buildpack.toml#L129-L130">node-engine
-buildpack</a>
-only supports stacks with ID <code>io.buildpacks.stacks.bionic</code>. If you build
-upon one of the Paketo <code>-cnb</code> stacks, your custom stack will be
-compatible already, since part of the CNB metadata added is the ID.</li>
-<li>Perform builds with the newly created builder image, which uses the custom stack images.</li>
-</ol>
+</h2><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Stack</th>
+<th>Use cases</th>
+<th>DockerHub Distribution</th>
+<th>Github Repository</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full Builder</td>
+<td>Ubuntu 18.04</td>
+<td>PHP, Java, Node.js, Go, .NET Core, Ruby, NGINX, and HTTPD buildpacks and common C libraries.</td>
+<td><code>paketobuildpacks/builder:full</code></td>
+<td><a href="https://github.com/paketo-buildpacks/full-builder">https://github.com/paketo-buildpacks/full-builder</a></td>
+</tr>
+<tr>
+<td>Buildpackless Full Builder</td>
+<td>Ubuntu 18.04</td>
+<td>No buildpacks included. Compatible with the same buildpacks as the Full Builder.</td>
+<td><code>paketobuildpacks/builder:buildpackless-full</code></td>
+<td><a href="https://github.com/paketo-buildpacks/buildpackless-full-builder">https://github.com/paketo-buildpacks/buildpackless-full-builder</a></td>
+</tr>
+<tr>
+<td>Base Builder</td>
+<td>Ubuntu 18.04</td>
+<td>Java, Node.js, Go, .NET Core, Ruby, and NGINX buildpacks without common C libraries.</td>
+<td><code>paketobuildpacks/builder:base</code></td>
+<td><a href="https://github.com/paketo-buildpacks/base-builder">https://github.com/paketo-buildpacks/base-builder</a></td>
+</tr>
+<tr>
+<td>Buildpackless Base Builder</td>
+<td>Ubuntu 18.04</td>
+<td>No buildpacks included. Compatible with the same buildpacks as the Base Builder.</td>
+<td><code>paketobuildpacks/builder:buildpackless-base</code></td>
+<td><a href="https://github.com/paketo-buildpacks/buildpackless-base-builder">https://github.com/paketo-buildpacks/buildpackless-base-builder</a></td>
+</tr>
+<tr>
+<td>Tiny Builder</td>
+<td>Ubuntu 18.04, scratch</td>
+<td>Consists of buildpacks to build most Go and Java GraalVM Native Image apps.</td>
+<td><code>paketobuildpacks/builder:tiny</code></td>
+<td><a href="https://github.com/paketo-buildpacks/tiny-builder">https://github.com/paketo-buildpacks/tiny-builder</a></td>
+</tr>
+<tr>
+<td>Buildpackless Tiny Builder</td>
+<td>Ubuntu 18.04, scratch</td>
+<td>No buildpacks included. Compatible with the same buildpacks as the Tiny Builder.</td>
+<td><code>paketobuildpacks/builder:buildpackless-tiny</code></td>
+<td><a href="https://github.com/paketo-buildpacks/buildpackless-tiny-builder">https://github.com/paketo-buildpacks/buildpackless-tiny-builder</a></td>
+</tr>
+<tr>
+<td>Jammy Full Builder</td>
+<td>Ubuntu 22.04</td>
+<td>PHP, Java, Node.js, Go, .NET Core, Ruby, NGINX, and HTTPD buildpacks and common C libraries.</td>
+<td><code>paketobuildpacks/builder-jammy-full</code></td>
+<td><a href="https://github.com/paketo-buildpacks/builder-jammy-full">https://github.com/paketo-buildpacks/builder-jammy-full</a></td>
+</tr>
+<tr>
+<td>Buildpackless Jammy Full Builder</td>
+<td>Ubuntu 22.04</td>
+<td>No buildpacks included. Compatible with the same buildpacks as the Jammy Full Builder.</td>
+<td><code>paketobuildpacks/builder-jammy-buildpackless-full</code></td>
+<td><a href="https://github.com/paketo-buildpacks/builder-jammy-buildpackless-full">https://github.com/paketo-buildpacks/builder-jammy-buildpackless-full</a></td>
+</tr>
+<tr>
+<td>Jammy Base Builder</td>
+<td>Ubuntu 22.04</td>
+<td>Java, Node.js, Go, .NET Core, Ruby, and NGINX buildpacks without common C libraries.</td>
+<td><code>paketobuildpacks/builder-jammy-base</code></td>
+<td><a href="https://github.com/paketo-buildpacks/builder-jammy-base">https://github.com/paketo-buildpacks/builder-jammy-base</a></td>
+</tr>
+<tr>
+<td>Buildpackless Jammy Base Builder</td>
+<td>Ubuntu 22.04</td>
+<td>No buildpacks included. Compatible with the same buildpacks as the Jammy Base Builder.</td>
+<td><code>paketobuildpacks/builder-jammy-buildpackless-base</code></td>
+<td><a href="https://github.com/paketo-buildpacks/builder-jammy-buildpackless-base">https://github.com/paketo-buildpacks/builder-jammy-buildpackless-base</a></td>
+</tr>
+<tr>
+<td>Jammy Tiny Builder</td>
+<td>Ubuntu 22.04, scratch</td>
+<td>Consists of buildpacks to build most Go and Java GraalVM Native Image apps.</td>
+<td><code>paketobuildpacks/builder-jammy-tiny</code></td>
+<td><a href="https://github.com/paketo-buildpacks/builder-jammy-tiny">https://github.com/paketo-buildpacks/builder-jammy-tiny</a></td>
+</tr>
+<tr>
+<td>Buildpackless Jammy Tiny Builder</td>
+<td>Ubuntu 22.04, scratch</td>
+<td>No buildpacks included. Compatible with the same buildpacks as the Jammy Tiny Builder.</td>
+<td><code>paketobuildpacks/builder-jammy-buildpackless-tiny</code></td>
+<td><a href="https://github.com/paketo-buildpacks/builder-jammy-buildpackless-tiny">https://github.com/paketo-buildpacks/builder-jammy-buildpackless-tiny</a></td>
+</tr>
+</tbody>
+</table>
 <!-- raw HTML omitted -->
 
             </div>
             
-  <a href="https://github.com/paketo-buildpacks/paketo-website/edit/main/content/docs/howto/create-custom-stack.md" target="_blank" class="github-edit" style="text-decoration:none">
+  <a href="https://github.com/paketo-buildpacks/paketo-website/edit/main/content/docs/reference/builders-reference.md" target="_blank" class="github-edit" style="text-decoration:none">
     <div class="github-edit__content">
       <div class="github-edit__logo-container">
         <img class="github-edit__logo" src="/images/github-mark.png">
@@ -726,14 +616,7 @@ compatible already, since part of the CNB metadata added is the ID.</li>
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#preface">Preface</a></li>
-    <li><a href="#create-a-custom-stack-image-based-off-of-a-paketo-stack">Create a custom stack image based off of a Paketo Stack</a>
-      <ul>
-        <li><a href="#using-docker-build">Using <code>docker build</code></a></li>
-        <li><a href="#using-jam-create-stack">Using <code>jam create-stack</code></a></li>
-      </ul>
-    </li>
-    <li><a href="#create-a-custom-builder-with-the-custom-stack">Create a custom builder with the custom stack</a></li>
+    <li><a href="#available-paketo-builders">Available Paketo Builders</a></li>
   </ul>
 </nav>
 </div>

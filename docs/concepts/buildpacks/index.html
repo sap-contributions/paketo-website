@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -342,6 +366,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/reference/go-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Go Buildpack</span>
@@ -469,7 +503,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
             <div class="docs-body__markdown">
-                <p>In the Getting Started tutorial, you ran a <code>pack build</code> command to build a sample app. This resulted in some output similar to this block:</p>
+                <p>In this section, we will use the results of the <a href="https://paketo.io/docs/">Getting started tutorial</a> with <code>Node.js</code> where a simple app is built using the <code>pack build</code> command.</p>
+<p>This resulted in some output similar to this block:</p>
 <pre tabindex="0"><code>...
 ===&gt; DETECTING
 paketo-buildpacks/node-engine 0.1.1
@@ -483,7 +518,7 @@ Paketo NPM Install Buildpack 0.2.0
 ...
 Paketo NPM Start Buildpack 0.0.2
 ...
-</code></pre><p>In this section, we will make sense of this output and explain how the
+</code></pre><p>Here we will make sense of this output and explain how the
 buildpacks detect what dependencies are needed by your app to build it into a runnable app image.</p>
 <h2 id="what-are-buildpacks" class="markup-heading">
     <a class="markup-heading__link" href="#what-are-buildpacks">
@@ -520,9 +555,9 @@ will provide to the subsequent <code>build</code> phase.</p>
 </h3><p>In the <code>build</code> phase, the buildpack contributes to the final
 app image, fulfilling the contract given by the <code>detect</code> phase. These
 contributions could be adding an image layer containing a dependency binary
-(like the Node.js engine) or could be as simple as a running a command (like
+(like the Node.js engine) or could be as simple as running a command (like
 <code>npm install</code>).</p>
-<p>In the Getting Started tutorial, the <code>pack build</code> output contains a section in the
+<p>In the tutorial, the <code>pack build</code> output contains a section in the
 build phase for the NPM Install Buildpack under a &ldquo;BUILDING&rdquo; header. You can
 see that the buildpack runs <code>npm install</code> to install the app&rsquo;s dependencies.
 Subsequently, the NPM Start Buildpack sets the start command to <code>node server.js</code>.</p>
@@ -540,7 +575,7 @@ responsibility. Component buildpacks may require contributions from upstream
 buildpacks and/or provide required components to downstream buildpacks.</p>
 <p>For example, the Gradle Buildpack is a component buildpack, responsible for
 installing Gradle in the build container and using Gradle to compile and
-package a JVM application. It requires that an upstream component to provide a
+package a JVM application. It requires an upstream component to provide a
 JDK. It provides a compiled JVM application to downstream buildpacks.</p>
 <h3 id="composite-buildpacks" class="markup-heading">
     <a class="markup-heading__link" href="#composite-buildpacks">
@@ -605,7 +640,7 @@ lifecycle</a>.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -668,7 +703,7 @@ lifecycle</a>.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -335,6 +359,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <a href="/docs/reference/dotnet-core-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>.NET Core Buildpack</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
             </a>
         </li>
     
@@ -485,7 +519,7 @@ the  Paketo Java Buildpack  How To <a href="/docs/howto/java">documentation</a>.
         About the JVM
     </a>
 </h2><p>The Java Buildpack uses the <a href="https://bell-sw.com/">BellSoft Liberica</a> implementations of the JRE and JDK. JVM installation is handled by the <a href="https://github.com/paketo-buildpacks/bellsoft-liberica">BellSoft Liberica Buildpack</a>. The JDK will be installed in the build container but only the JRE will be contributed to the application image.</p>
-<p>See the <a href="https://github.com/paketo-buildpacks/bellsoft-liberica">homepage</a> for the Bellsoft Liberica Buildpack for a full set of configuration options.</p>
+<p>See the <a href="https://github.com/paketo-buildpacks/bellsoft-liberica">homepage</a> for the BellSoft Liberica Buildpack for a full set of configuration options.</p>
 <h2 id="memory-calculator" class="markup-heading">
     <a class="markup-heading__link" href="#memory-calculator">
         Memory Calculator
@@ -515,6 +549,7 @@ the  Paketo Java Buildpack  How To <a href="/docs/howto/java">documentation</a>.
         Non-Heap
     </a>
 </h3><p>The below table lists the component parts of the Non-Heap value, the equivalent JVM flags, and their defaults. Where one exists, the JVM default value is used.</p>
+<!-- raw HTML omitted -->
 <table>
 <thead>
 <tr>
@@ -546,6 +581,7 @@ the  Paketo Java Buildpack  How To <a href="/docs/howto/java">documentation</a>.
 </tr>
 </tbody>
 </table>
+<!-- raw HTML omitted -->
 <p>The outputs of the tool are the above JVM flags and their calculated values.</p>
 <p>The remaining memory left after totalling these values is assigned to the <code>-Xmx</code> flag as Heap. All flags and values are then appended to <code>JAVA_TOOL_OPTIONS</code> when the application image is run.</p>
 <h3 id="notes" class="markup-heading">
@@ -584,9 +620,19 @@ Therefore, setting <code>-Xmx</code> directly could either:</p>
 <td><a href="https://tomcat.apache.org/tomcat-9.0-doc/index.html">link</a></td>
 </tr>
 <tr>
+<td>Apache Tomee</td>
+<td><a href="https://github.com/paketo-buildpacks/apache-tomee/blob/main/README.md">link</a></td>
+<td><a href="https://tomee.apache.org/tomee-8.0/docs/">link</a></td>
+</tr>
+<tr>
 <td>Open Liberty</td>
 <td><a href="https://github.com/paketo-buildpacks/liberty/blob/main/README.md">link</a></td>
 <td><a href="https://openliberty.io/">link</a></td>
+</tr>
+<tr>
+<td>WebSphere Liberty</td>
+<td><a href="https://github.com/paketo-buildpacks/liberty/blob/main/README.md">link</a></td>
+<td><a href="https://www.ibm.com/cloud/websphere-liberty">link</a></td>
 </tr>
 </tbody>
 </table>
@@ -641,7 +687,7 @@ applying Boot-specific performance optimizations, and enabling runtime auto-conf
 <tr>
 <td><a href="https://github.com/paketo-buildpacks/syft">Paketo Syft</a></td>
 <td>Optional</td>
-<td>Provides the Syft CLI which can be used to generate SBoM information.</td>
+<td>Provides the Syft CLI which can be used to generate SBOM information.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/paketo-buildpacks/leiningen">Paketo Leiningen Buildpack</a></td>
@@ -684,6 +730,11 @@ applying Boot-specific performance optimizations, and enabling runtime auto-conf
 <td>Contributes Apache Tomcat and a process type that launches a WAR with Tomcat.</td>
 </tr>
 <tr>
+<td><a href="https://github.com/paketo-buildpacks/apache-tomee">Paketo Apache Tomee Buildpack</a></td>
+<td>Optional</td>
+<td>Contributes Apache Tomee and a process type that launches a WAR with Tomee.</td>
+</tr>
+<tr>
 <td><a href="https://github.com/paketo-buildpacks/liberty">Paketo Liberty Buildpack</a></td>
 <td>Optional</td>
 <td>Contributes Open Liberty and a process type that launches a WAR with Open Liberty.</td>
@@ -704,7 +755,7 @@ applying Boot-specific performance optimizations, and enabling runtime auto-conf
 <td>Allows the application to define or redefine process types with a [Procfile][procfiles]</td>
 </tr>
 <tr>
-<td><a href="https://github.com/paketo-buildpacks/jattach">Paketo Jattach</a></td>
+<td><a href="https://github.com/paketo-buildpacks/jattach">Paketo JAttach</a></td>
 <td>Optional</td>
 <td>Provides the JAttach binary to send commands to a remote JVM via Dynamic Attach mechanism</td>
 </tr>
@@ -747,6 +798,9 @@ applying Boot-specific performance optimizations, and enabling runtime auto-conf
 </table>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
             </div>
             
@@ -759,7 +813,7 @@ applying Boot-specific performance optimizations, and enabling runtime auto-conf
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -827,7 +881,7 @@ applying Boot-specific performance optimizations, and enabling runtime auto-conf
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

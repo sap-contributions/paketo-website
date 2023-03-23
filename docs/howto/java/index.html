@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -342,6 +366,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/reference/go-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Go Buildpack</span>
@@ -461,6 +495,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#inspect-the-jvm-version">Inspect the JVM Version</a></li>
         <li><a href="#install-a-specific-jvm-version">Install a Specific JVM Version</a></li>
         <li><a href="#install-a-specific-jvm-type">Install a Specific JVM Type</a></li>
+        <li><a href="#install-a-minimal-jre-with-jlink">Install a Minimal JRE with JLink</a></li>
         <li><a href="#configure-the-jvm-at-runtime">Configure the JVM at Runtime</a></li>
         <li><a href="#use-an-alternative-jvm">Use an Alternative JVM</a></li>
         <li><a href="#use-an-alternative-java-application-server">Use an Alternative Java Application Server</a></li>
@@ -487,6 +522,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#using-tilt-with-paketo-buildpacks">Using Tilt with Paketo Buildpacks</a></li>
       </ul>
     </li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
     <li><a href="#enable-remote-debugging">Enable Remote Debugging</a></li>
     <li><a href="#enable-jmx">Enable JMX</a></li>
     <li><a href="#enable-java-native-memory-tracking-nmt">Enable Java Native Memory Tracking (NMT)</a>
@@ -524,7 +560,7 @@ cd samples
     <div class="copyable__copied copied">Copied!</div>
 </div></p>
 <p>The <a href="https://github.com/buildpacks/pack">pack CLI</a> is used throughout the examples. <code>pack</code> is just one of several Cloud Native Buildpack <a href="https://buildpacks.io/docs/concepts/components/platform/">platforms</a> than can execute builds with the Java Buildpacks. For example, Spring Boot developers may want to explore the <a href="https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/#build-image">Spring Boot Maven Plugin</a> or <a href="https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/html/#build-image">Spring Boot Gradle Plugin</a> .</p>
-<p>Examples assume that the <a href="https://paketo.io/docs/concepts/builders/#base">Paketo Base builder</a> is the default builder:
+<p>Examples assume that the <a href="https://paketo.io/docs/reference/builders-reference/">Paketo Base builder</a> is the default builder:
 <div class="copyable">
     <pre class="copyable__code">pack config default-builder paketobuildpacks/builder:base
 </pre>
@@ -550,10 +586,14 @@ curl -s http://localhost:8080/actuator/health | jq .
 </h3><p>The Java Buildpack can build from source using any of the following build tools:</p>
 <ul>
 <li><a href="https://gradle.org/">Gradle</a> - Support provided by the <a href="https://github.com/paketo-buildpacks/gradle">Gradle Buildpack</a></li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
 <li><a href="https://leiningen.org/">Leiningen</a> - Support provided by the <a href="https://github.com/paketo-buildpacks/leiningen">Leiningen Buildpack</a></li>
 <li><a href="https://maven.apache.org/">Maven</a> - Support provided by the <a href="https://github.com/paketo-buildpacks/maven">Maven Buildpack</a></li>
 <li><a href="https://www.scala-sbt.org/index.html">SBT</a> - Support provided by the <a href="https://github.com/paketo-buildpacks/sbt">SBT Buildpack</a></li>
 </ul>
+<!-- raw HTML omitted -->
 <p>The correct build tool to use will be detected based on the contents of the
 application directory.</p>
 <p>The build should produce one the of <a href="#build-from-a-compiled-artifact">supported artifact
@@ -592,7 +632,7 @@ Artifact</a>.</p>
 <ul>
 <li>Defaults to a tool-specific pattern (e.g. <code>target/*.[jw]ar</code> for Maven, <code>build/libs/*.[jw]ar</code> for gradle). See component buildpack homepage for details.</li>
 <li>Configures the built application artifact path, using <a href="https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html">Bash Pattern Matching</a>.</li>
-<li>Supercedes <code>BP_&lt;TOOL&gt;_BUILT_MODULE</code> if set to a non-default value.</li>
+<li>Supersedes<code>BP_&lt;TOOL&gt;_BUILT_MODULE</code> if set to a non-default value.</li>
 <li><em>Example</em>: Given <code>BP_MAVEN_BUILT_ARTIFACT=out/api-*.jar</code>, the Paketo Maven Buildpack will select a file with name <code>out/api-1.0.0.jar</code>.</li>
 </ul>
 </li>
@@ -662,6 +702,48 @@ Artifact</a>.</p>
 </div></p>
 </li>
 </ol>
+<h5 id="share-local-maven-or-gradle-cache" class="markup-heading">
+    <a class="markup-heading__link" href="#share-local-maven-or-gradle-cache">
+        Share Local Maven or Gradle Cache
+    </a>
+</h5><p>If you have been developing your code on your computer, it&rsquo;s very likely that Maven or Gradle have already downloaded all of the dependency JARs required to build your application. However, if you perform a <code>pack build</code> of your application this runs in a new container and does not by default have access to your existing Maven or Gradle cache. This means Maven and Gradle will helpfully download all of the dependencies they require again, slowing down your builds.</p>
+<p>You can speed up builds by sharing your local Maven or Gradle cache with the container.</p>
+<p>To do this with <code>pack</code>, you need to add the flag <code>--volume $HOME/.m2:/home/cnb/.m2:rw</code> to your <code>pack build</code> command. This flag will volume mount your local Maven directory into the build container so it can be used there. This command makes the volume mount read-write, which allows Maven running inside the container to download and persist additional dependencies. If you do not want this, you can make the mount read-only by changing <code>:rw</code> to <code>:ro</code>. If read-only and Maven requires a dependency not present, the build will fail.</p>
+<p>You may do the same thing with Gradle, the flag to add is <code>--volume $HOME/.gradle:/home/cnb/.gradle:rw</code>. Again, you make change <code>:rw</code> to <code>:ro</code> if you prefer the mount to be read-only.</p>
+<p>For example:</p>
+<div class="copyable">
+    <pre class="copyable__code">pack build samples/java \
+  --path java/maven \
+  --volume $HOME/.m2:/home/cnb/.m2:rw
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p>or</p>
+<div class="copyable">
+    <pre class="copyable__code">pack build samples/java \
+  --path java/gradle \
+  --volume $HOME/.gradle:/home/cnb/.gradle:rw
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p><strong>DO NOT</strong> use this option if <a href="#connect-to-a-private-maven-repository">including a Maven or Gradle binding</a>! If you do this, it will overwrite your actual local config file with the binding file which could cause data loss. It is also unnecessary because we are volume mounting the entire Maven or Gradle directory into the container which includes your Maven and Gradle settings.</p>
+<h5 id="include-or-exclude-custom-files" class="markup-heading">
+    <a class="markup-heading__link" href="#include-or-exclude-custom-files">
+        Include or Exclude Custom Files
+    </a>
+</h5><p>When building your application from source code, the Java buildpacks will capture the output artifact from your build process, typically a JAR/WAR file, and include that in the image that is generated. If you need to include/exclude additional files you may do so by setting the <code>BP_INCLUDE_FILES</code> or <code>BP_EXCLUDE_FILES</code> environment variables. Each can be set with a colon separated list of glob patterns. If a file or directory matches then it&rsquo;ll be included or excluded. If both include and exclude patterns are specified then the include patterns are applied first, followed by the exclude patterns second. By default, no additional files are included or excluded.</p>
+<p>Any files added to the image through this process are rooted at the application directory, which is <code>/workspace</code> in the generated image. Files will reside under the same sub directories there as under the application source code root. If you have files under <code>src/main/resources/foo</code> and you use an include pattern of <code>src/main/resources/foo/*</code> then those files will be in the image at <code>/workspace/src/main/resources/foo</code>. There is not presently any way to transform the file locations, so if you require files at a specific location in the generated image you will need to use the same sub directory structure in your application source code.</p>
+<div class="copyable">
+    <pre class="copyable__code">pack build samples/java \
+  --path java/maven
+  -e BP_INCLUDE_FILES=&#39;foo/*&#39;
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p><strong>NOTE:</strong> It is important to properly quote values for <code>BP_INCLUDE_FILES</code> and <code>BP_EXCLUDE_FILES</code> as they may contain wild card characters like <code>*</code> which the shell my interpret. Proper quoting ensures the actual characters are passed through to the buildpack.</p>
 <h3 id="build-from-a-compiled-artifact" class="markup-heading">
     <a class="markup-heading__link" href="#build-from-a-compiled-artifact">
         Build from a Compiled Artifact
@@ -669,11 +751,15 @@ Artifact</a>.</p>
 </h3><p>An application developer may build an image from following archive formats:</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/JAR_(file_format)#Executable_JAR_files">Executable JAR</a> - Support provided by the <a href="https://github.com/paketo-buildpacks/executable-jar">Executable Jar Buildpack</a></li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
 <li><a href="https://en.wikipedia.org/wiki/WAR_(file_format)">WAR</a> - Support provided by the <a href="https://github.com/paketo-buildpacks/apache-tomcat">Apache Tomcat Buildpack</a></li>
 <li><a href="https://docs.gradle.org/current/userguide/distribution_plugin.html">Distribution ZIP</a> - Support provided by the <a href="https://github.com/paketo-buildpacks/dist-zip">DistZip Buildpack</a></li>
 </ul>
 <p>The Java Buildpack expects the application directory to contain the extracted contents of the archive (e.g. an exploded JAR). Most platforms will automatically extract any provided archives.</p>
 <p>If a WAR is detect the Java Buildpack will install <a href="https://tomcat.apache.org">Apache Tomcat</a>. For exact set of supported Tomcat versions can be found in the Java Buildpack <a href="https://github.com/paketo-buildpacks/java/releases">releases notes</a>. For tomcat configuration options see the <a href="https://github.com/paketo-buildpacks/apache-tomcat">Apache Tomcat Buildpack</a>.</p>
+<!-- raw HTML omitted -->
 <p>The component buildpack for the provided artifact format will contribute a start command to the image.</p>
 <p><em>Note</em>: All three of the <a href="https://github.com/paketo-buildpacks/apache-tomcat">Apache Tomcat Buildpack</a>,
 <a href="https://github.com/paketo-buildpacks/executable-jar">Executable Jar Buildpack</a>, and <a href="https://github.com/paketo-buildpacks/dist-zip">DistZip
@@ -733,6 +819,33 @@ pack build samples/java \
 </ul>
 </li>
 </ul>
+<h3 id="install-a-minimal-jre-with-jlink" class="markup-heading">
+    <a class="markup-heading__link" href="#install-a-minimal-jre-with-jlink">
+        Install a Minimal JRE with JLink
+    </a>
+</h3><p>JLink is a tool included with the JDK that allows for the generation of a customized JRE. This is supported for Java versions 9 and above, where the Java Module system is available. To run the JLink tool and install a minimal JRE for runtime, simply use the following environment variable:</p>
+<ul>
+<li><code>BP_JVM_JLINK_ENABLED</code> - this defaults to <code>false</code>, set to <code>true</code> to enable JLink.</li>
+</ul>
+<p>This will run JLink with the following default arguments:</p>
+<ul>
+<li><code>--no-man-pages</code> - this excludes man pages from the generated JRE</li>
+<li><code>--no-header-files</code> - this excludes header files from the generated JRE</li>
+<li><code>--strip-debug</code> - this strips debug information from the generated JRE</li>
+<li><code>--compress=1</code> - this enables &ldquo;Constant string sharing&rdquo; level compression</li>
+</ul>
+<p>The JRE generated by default will include only Java modules prefixed with <code>java.*</code>. If you wish to fully customize all arguments passed to JLink including which modules should be added to the generated JRE, you can use the following environment variable:</p>
+<ul>
+<li><code>BP_JVM_JLINK_ARGS</code> - not set by default - if any value(s) are specified here, none of the defaults listed above will be set. The variable should contain the arguments you wish to pass to the JLink tool, including the list of required modules with the argument <code>--add-modules &lt;comma-separated-list&gt;</code>.</li>
+</ul>
+<p><strong>Example: Generating a minimal JRE via JLink, with custom arguments</strong></p>
+<div class="copyable">
+    <pre class="copyable__code">pack build samples/java --env BP_JVM_JLINK_ENABLED=true --env BP_JVM_JLINK_ARGS=&#34;--no-header-files --compress=1 --add-modules java.base,java.se&#34;
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p>Generating a minimal JRE can be particularly useful when specifying a JVM Provider which does not supply its own JRE, for example, Amazon Corretto. A full JDK would normally be supplied at runtime when using such providers, as it is the only option, resulting in an unnecessarily large runtime image. Enabling JLink in this case will generate a slimmed-down JRE from the supplied JDK and ensure a significantly smaller runtime image.</p>
 <h3 id="configure-the-jvm-at-runtime" class="markup-heading">
     <a class="markup-heading__link" href="#configure-the-jvm-at-runtime">
         Configure the JVM at Runtime
@@ -740,21 +853,37 @@ pack build samples/java \
 </h3><p>The Java Buildpack configures the JVM by setting <code>JAVA_TOOL_OPTIONS</code> in the JVM environment.</p>
 <p>The runtime JVM can be configured in two ways:</p>
 <ol>
-<li>Buildpack-provided runtime components including the Memory Calculator accept semantically named environment variables which are then used to derive <code>JAVA_TOOL_OPTIONS</code> flags. Examples include:
+<li>
+<p>Buildpack-provided runtime components including the Memory Calculator accept semantically named environment variables which are then used to derive <code>JAVA_TOOL_OPTIONS</code> flags. Examples include:</p>
 <ul>
 <li><code>BPL_JVM_HEAD_ROOM</code></li>
 <li><code>BPL_JVM_LOADED_CLASS_COUNT</code></li>
 <li><code>BPL_JVM_THREAD_COUNT</code></li>
 </ul>
 </li>
-<li>Flags can be set directly at runtime with the <code>JAVA_TOOL_OPTIONS</code> environment variable. User-provided flags will be appended to buildpack-provided flags. If the user and a buildpack set the same flag, user-provided flags take precedence.</li>
+<li>
+<p>Flags can be set directly at runtime with the <code>JAVA_TOOL_OPTIONS</code> environment variable. User-provided flags will be appended to buildpack-provided flags. If the user and a buildpack set the same flag, user-provided flags take precedence.</p>
+</li>
 </ol>
-<p>See the <a href="https://github.com/paketo-buildpacks/bellsoft-liberica">homepage</a> for the Bellsoft Liberica Buildpack for a full set of configuration options.</p>
+<p>See the <a href="https://github.com/paketo-buildpacks/bellsoft-liberica">homepage</a> for the BellSoft Liberica Buildpack for a full set of configuration options.</p>
+<p>For example, you can add additional JVM flags to configure garbage collection, memory flags and other settings.</p>
+<!-- raw HTML omitted -->
+<div class="copyable">
+    <pre class="copyable__code">docker run --rm --tty \
+  --env JAVA_TOOL_OPTIONS=&#39;-XX:&#43;UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40&#39; \
+  --env BPL_JVM_THREAD_COUNT=100
+  samples/java
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<!-- raw HTML omitted -->
 <h3 id="use-an-alternative-jvm" class="markup-heading">
     <a class="markup-heading__link" href="#use-an-alternative-jvm">
         Use an Alternative JVM
     </a>
-</h3><p>By default, the <a href="https://github.com/paketo-buildpacks/java">Paketo Java buildpack</a> will use the Liberica JVM. The following Paketo JVM buildpacks may be used to substitute alternate JVM implemenations in place of Liberica&rsquo;s JVM.</p>
+</h3><p>By default, the <a href="https://github.com/paketo-buildpacks/java">Paketo Java buildpack</a> will use the Liberica JVM. The following Paketo JVM buildpacks may be used to substitute alternate JVM implementations in place of Liberica&rsquo;s JVM.</p>
+<!-- raw HTML omitted -->
 <table>
 <thead>
 <tr>
@@ -812,6 +941,7 @@ pack build samples/java \
 </tr>
 </tbody>
 </table>
+<!-- raw HTML omitted -->
 <ol>
 <li><em><span class="sub">Only provides JRE and JDK releases for Java 8 and 11, Java 16+ is JDK only</span>
 </em></li>
@@ -820,7 +950,7 @@ pack build samples/java \
 <li><em><span class="sub">Only provides Java 17</span>
 </em></li>
 </ol>
-<p>To use an alternative JVM, you will need to set two <code>--buildpack</code> arguments to <code>pack build</code>, one for the alternative JVM buildpack you&rsquo;d like to use and one for the Paketo Java buildpack (in that order). This works because while you end up with two JVM buildpacks, the first one, the one you&rsquo;re specifying will claim the build plan entries so the second one will end up being a noop and doing nothing.</p>
+<p>To use an alternative JVM, you will need to set two <code>--buildpack</code> arguments to <code>pack build</code>, one for the alternative JVM buildpack you&rsquo;d like to use and one for the Paketo Java buildpack (in that order). This works because while you end up with two JVM buildpacks, the first one, the one you&rsquo;re specifying will claim the build plan entries so the second one will end up being a no-op and doing nothing.</p>
 <p>This example will switch in the Azul Zulu buildpack:</p>
 <div class="copyable">
     <pre class="copyable__code">pack build samples/jar --buildpack paketo-buildpacks/azul-zulu --buildpack paketo-buildpacks/java`
@@ -856,6 +986,11 @@ pack build samples/java \
 <td><a href="https://tomcat.apache.org">Apache Tomcat</a></td>
 <td><code>tomcat</code></td>
 <td><a href="https://github.com/paketo-buildpacks/apache-tomcat">Paketo Apache Tomcat</a> - Default</td>
+</tr>
+<tr>
+<td><a href="https://tomee.apache.org">Apache Tomee</a></td>
+<td><code>tomee</code></td>
+<td><a href="https://github.com/paketo-buildpacks/apache-tomee">Paketo Apache Tomee</a></td>
 </tr>
 <tr>
 <td><a href="https://openliberty.io/">Open Liberty</a></td>
@@ -936,7 +1071,7 @@ pack build samples/java-native \
     <a class="markup-heading__link" href="#configure-the-graalvm-version">
         Configure the GraalVM Version
     </a>
-</h3><p>Because GraalVM is evolving rapidly you may on occasion need to, for compatibility reasons, select a sepecific version of the GraalVM and associated tools to use when building an image. This is not a directly configurable option like the JVM version, however, you can pick a specific version by changing the version of the Java Native Image Buildpack you use.</p>
+</h3><p>Because GraalVM is evolving rapidly you may on occasion need to, for compatibility reasons, select a specific version of the GraalVM and associated tools to use when building an image. This is not a directly configurable option like the JVM version, however, you can pick a specific version by changing the version of the Java Native Image Buildpack you use.</p>
 <p>The following table documents the versions available.</p>
 <table>
 <thead>
@@ -946,6 +1081,18 @@ pack build samples/java-native \
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>22.2</td>
+<td>7.26.1</td>
+</tr>
+<tr>
+<td>22.1</td>
+<td>7.16.2</td>
+</tr>
+<tr>
+<td>22.0</td>
+<td>7.8.1</td>
+</tr>
 <tr>
 <td>21.3</td>
 <td>5.12.0</td>
@@ -964,9 +1111,9 @@ pack build samples/java-native \
 </tr>
 </tbody>
 </table>
-<p>For example, to select GraalVM 21.1:</p>
+<p>For example, to select GraalVM 22.1:</p>
 <div class="copyable">
-    <pre class="copyable__code">pack build samples/native -e BP_NATIVE_IMAGE=true --buildpack paketo-buildpacks/ca-certificates --buildpack paketo-buildpacks/java-native-image@5.4.0
+    <pre class="copyable__code">pack build samples/native -e BP_NATIVE_IMAGE=true --buildpack paketo-buildpacks/ca-certificates --buildpack paketo-buildpacks/java-native-image@7.16.2
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -975,7 +1122,7 @@ pack build samples/java-native \
     <a class="markup-heading__link" href="#use-an-alternative-java-native-image-toolkit">
         Use an Alternative Java Native Image Toolkit
     </a>
-</h3><p>By default, the <a href="https://github.com/paketo-buildpacks/java-native-image">Paketo Java Native Image buildpack</a> will use Bellsoft&rsquo;s Native Image Toolkit. The following Paketo JVM buildpacks may be used to substitute alternate Native Image Toolkit implemenations in place of the default.</p>
+</h3><p>By default, the <a href="https://github.com/paketo-buildpacks/java-native-image">Paketo Java Native Image buildpack</a> will use BellSoft&rsquo;s Native Image Toolkit. The following Paketo JVM buildpacks may be used to substitute alternate Native Image Toolkit implementations in place of the default.</p>
 <table>
 <thead>
 <tr>
@@ -985,8 +1132,8 @@ pack build samples/java-native \
 </thead>
 <tbody>
 <tr>
-<td><a href="https://bell-sw.com/pages/liberica-native-image-kit/">Bellsoft Liberica</a></td>
-<td><a href="https://github.com/paketo-buildpacks/bellsoft-liberica">Paketo Bellsoft Liberica Buildpack</a></td>
+<td><a href="https://bell-sw.com/pages/liberica-native-image-kit/">BellSoft Liberica</a></td>
+<td><a href="https://github.com/paketo-buildpacks/bellsoft-liberica">Paketo BellSoft Liberica Buildpack</a></td>
 </tr>
 <tr>
 <td><a href="https://www.graalvm.org/docs/introduction/">GraalVM</a></td>
@@ -994,14 +1141,16 @@ pack build samples/java-native \
 </tr>
 </tbody>
 </table>
-<p>To use an alternative Java Native Image Toolkit, you will need to set two <code>--buildpack</code> arguments to <code>pack build</code>, one for the alternative Java Native Image Toolkit buildpack you&rsquo;d like to use and one for the Paketo Java Native Image buildpack (in that order). This works because while you end up with two Java Native Image Toolkit buildpacks, the first one, the one you&rsquo;re specifying will claim the build plan entries so the second one will end up being a noop and doing nothing.</p>
+<p>To use an alternative Java Native Image Toolkit, you will need to set two <code>--buildpack</code> arguments to <code>pack build</code>, one for the alternative Java Native Image Toolkit buildpack you&rsquo;d like to use and one for the Paketo Java Native Image buildpack (in that order). This works because while you end up with two Java Native Image Toolkit buildpacks, the first one, the one you&rsquo;re specifying will claim the build plan entries so the second one will end up being a no-op and doing nothing.</p>
 <p>This example will switch in the GraalVM buildpack:</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">pack build samples/native-image --buildpack paketo-buildpacks/graalvm --buildpack paketo-buildpacks/java-native-image`
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
+<!-- raw HTML omitted -->
 <p>There is one drawback to this approach. When using the method above to specify an alternative Java Native Image Toolkit vendor buildpack, this alternate buildpack ends up running before the CA certs buildpack and therefore traffic from the alternate Java Native Image Toolkit vendor buildpack won’t trust any additional CA certs. This is not expected to impact many users because Java Native Image Toolkit buildpacks should reach out to URLs that have a cert signed by a known authority with a CA in the default system truststore.</p>
 <p>If you have customized your Java Native Image Toolkit buildpack to download the Java Native Image Toolkit from a URL that uses a certificate not signed by a well-known CA, you can workaround this by specifying the CA certs buildpack to run first. This works because while you will end up with the CA certificates buildpack specified twice, the lifecycle is smart enough to drop the second one.</p>
 <p>For example:</p>
@@ -1036,49 +1185,7 @@ pack build samples/java-native \
     <a class="markup-heading__link" href="#connect-to-an-apm">
         Connect to an APM
     </a>
-</h2><p>The Java Buildpack supports the following <a href="https://en.wikipedia.org/wiki/Application_performance_management">APM</a> integrations:</p>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview">Azure Application Insights</a> - support provided by the <a href="https://github.com/paketo-buildpacks/azure-application-insights">Azure Application Insights Buildpack</a></li>
-<li><a href="https://cloud.google.com/products/operations">Google Stackdriver</a> - support provided by the <a href="https://github.com/paketo-buildpacks/google-stackdriver">Google Stackdriver Buildpack</a></li>
-<li><a href="https://www.datadoghq.com/">Datadog</a> - support provided by the <a href="https://github.com/paketo-buildpacks/datadog">Datadog Buildpack</a></li>
-</ul>
-<p>The Azure Application Insights and Google Stackdriver APM integrations are enabled with <a href="https://paketo.io/docs/howto/configuration/#bindings">bindings</a>. If a binding of the correct <code>type</code> is provided at build-time the corresponding Java agent will be contributed to the application image. Connection credentials will be read from the binding at runtime.</p>
-<p><strong>Example</strong>: Connecting to Azure Application Insights</p>
-<p>The following command builds an image with the Azure Application Insights Java Agent
-<div class="copyable">
-    <pre class="copyable__code">pack build samples/java --volume &#34;$(pwd)/java/application-insights/binding:/platform/bindings/application-insights&#34;
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></p>
-<p>To connect to Azure Applicaiton Insights at runtime a valid <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/create-new-resource#copy-the-instrumentation-key">Instrumentation Key</a> is required.
-<div class="copyable">
-    <pre class="copyable__code">echo &#34;&lt;Instrumentation Key&gt;&#34; &gt; java/application-insights/binding/InstrumentationKey
-docker run --rm --tty \
-  --env SERVICE_BINDING_ROOT=/bindings \
-  --volume &#34;$(pwd)/java/application-insights/binding:/bindings/app-insights&#34; \
-  samples/java
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></p>
-<p>The Datadog APM integration is enabled with an environment variable. If the environment variable is set then the corresponding Java agent will be contributed to the application image. Configuration will be read from standard Datadog environment variables set at runtime. You can find the full list in the Datadog documentation <a href="https://docs.datadoghq.com/tracing/setup_overview/setup/java/?tab=containers#configuration">available here</a>.</p>
-<p><strong>Example</strong>: Connecting to Datadog</p>
-<p>The following command builds an image with the Datadog Java Agent</p>
-<div class="copyable">
-    <pre class="copyable__code">pack build samples/java -e BP_DATADOG_ENABLED=true
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div>
-<p><a href="https://docs.datadoghq.com/tracing/setup_overview/setup/java/?tab=containers#configuration">Configuration of the Datadog agent</a> is done through environment variables at runtime:</p>
-<div class="copyable">
-    <pre class="copyable__code">docker run --rm --tty samples/java -e DD_SERVICE=foo-service -e DD_ENV=foo-env -e DD_VERSION=1.1.1
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div>
-<p>Note that the Datadog agent requires a side-car agent to be running in addition to the Java agent. This agent runs outside of the buildpack generated image. The <a href="https://docs.datadoghq.com/tracing/setup_overview/setup/java/?tab=containers#configure-the-datadog-agent-for-apm">standard Datadog instructions for your container orchestrator of choice</a> can be used to install this agent. The Paketo team also has detailed instructions for <a href="https://github.com/paketo-buildpacks/datadog/blob/main/docs/">various runtimes available here</a>.</p>
+</h2><p>Application Monitoring has been moved to a new page. Please see the <a href="/docs/howto/app-monitor/">Application Monitoring</a>.</p>
 <h2 id="enable-process-reloading" class="markup-heading">
     <a class="markup-heading__link" href="#enable-process-reloading">
         Enable Process Reloading
@@ -1119,15 +1226,12 @@ docker run --rm --tty \
 </h3><p>You can use <a href="https://tilt.dev/">Tilt</a> with the Paketo Java Buildpacks. This uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack">Pack Tilt extension</a>. The example below shows how to use the pack extension and how to configure watched files.</p>
 <p><strong>Example</strong>: Tilt</p>
 <ol>
-<li>
-<p>Clone the official Tilt examples: <code>git clone https://github.com/tilt-dev/tilt-example-java</code></p>
-</li>
-<li>
-<p><code>cd tilt-example-java/0-base</code></p>
-</li>
-<li>
-<p>Modify your <code>Tiltfile</code> to look like this:</p>
-<div class="copyable">
+<li>Clone the official Tilt examples: <code>git clone https://github.com/tilt-dev/tilt-example-java</code></li>
+<li><code>cd tilt-example-java/0-base</code></li>
+<li>Modify your <code>Tiltfile</code> to look like this:</li>
+</ol>
+<!-- raw HTML omitted -->
+<pre><code><div class="copyable">
     <pre class="copyable__code">    load(&#39;ext://pack&#39;, &#39;pack&#39;)
 
     pack(
@@ -1143,7 +1247,9 @@ docker run --rm --tty \
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
-</li>
+</code></pre>
+<!-- raw HTML omitted -->
+<ol start="4">
 <li>
 <p>Execute <code>tilt up</code>.</p>
 </li>
@@ -1159,6 +1265,20 @@ docker run --rm --tty \
 <p>In addition, we configure Tilt to watch <code>./bin/main/**</code>. These files when modified will trigger an update in the container. The <code>live_update</code> block indicates which files locally will update and where they will be placed in the live container. We are instructing everything under <code>./bin/main</code> to be added into <code>/workspace/BOOT-INF/classes</code> when an update is triggered. This takes classes and resources compiled locally by an IDE and injects them into the location where application classes are stored in the container image.</p>
 <p>This example is tuned for use with Visual Studio Code and its Java and Gradle extensions. These will compile code changes on save and put the compiled output in <code>./bin/main</code>. If you use a different IDE or Gradle/Maven directly, you will need to adjust the <code>deps</code> and <code>live_update</code> directories accordingly.</p>
 <p>This functionality presently depends on the support of <a href="https://github.com/watchexec/watchexec/"><code>watchexec</code></a>. It is recommend that you read the section <a href="#enable-process-reloading">Enable Process Reloading</a> for further details.</p>
+<h2 id="enable-debug-logging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-debug-logging">
+        Enable <code>DEBUG</code> logging
+    </a>
+</h2><p>Users of the Java buildpack can access extra debug logs during the image build process by setting the <code>BP_LOG_LEVEL</code>
+environment variable to <code>DEBUG</code> at build time. Additional debug logs will
+appear in build logs if the relevant buildpacks have debug log lines.
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/java \
+  --env BP_LOG_LEVEL=DEBUG
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
 <h2 id="enable-remote-debugging" class="markup-heading">
     <a class="markup-heading__link" href="#enable-remote-debugging">
         Enable Remote Debugging
@@ -1220,12 +1340,14 @@ docker run --rm --tty \
     <div class="copyable__copied copied">Copied!</div>
 </div>
 <p>From inside the new bash session, you can run the following to view the NMT data:</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">jcmd 1 VM.native_memory summary
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
+<!-- raw HTML omitted -->
 <p>The first argument should be the JVM PID, in the case of the Paketo Java buildpack, this will be <code>1</code>.</p>
 <h3 id="java-nmt-and-java-8" class="markup-heading">
     <a class="markup-heading__link" href="#java-nmt-and-java-8">
@@ -1239,6 +1361,7 @@ docker run --rm --tty \
     </a>
 </h3><p>Java NMT support does not work with <a href="#enable-process-reloading">Reloadable Processes</a>. This is because when using reloadable processes, the JVM PID is not 1 and not easily determinable by the buildpack Java NMT helper. Thus the helper cannot set the environment variables required by the JVM to enable Java NMT.</p>
 <p>If you attempt to enable Java NMT and are using Reloadable Processes, that&rsquo;s OK. The JVM will not enable Java NMT and it will output the following messages.</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">OpenJDK 64-Bit Server VM warning: Native Memory Tracking did not setup properly, using wrong launcher?
 OpenJDK 64-Bit Server VM warning: PrintNMTStatistics is disabled, because native memory tracking is not enabled
@@ -1246,6 +1369,7 @@ OpenJDK 64-Bit Server VM warning: PrintNMTStatistics is disabled, because native
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
+<!-- raw HTML omitted -->
 <p>Your application should continue to run, but with Java NMT disabled.</p>
 <h2 id="enable-java-flight-recorder-jfr" class="markup-heading">
     <a class="markup-heading__link" href="#enable-java-flight-recorder-jfr">
@@ -1321,6 +1445,8 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
             </div>
             
@@ -1333,7 +1459,7 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -1347,6 +1473,7 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
         <li><a href="#inspect-the-jvm-version">Inspect the JVM Version</a></li>
         <li><a href="#install-a-specific-jvm-version">Install a Specific JVM Version</a></li>
         <li><a href="#install-a-specific-jvm-type">Install a Specific JVM Type</a></li>
+        <li><a href="#install-a-minimal-jre-with-jlink">Install a Minimal JRE with JLink</a></li>
         <li><a href="#configure-the-jvm-at-runtime">Configure the JVM at Runtime</a></li>
         <li><a href="#use-an-alternative-jvm">Use an Alternative JVM</a></li>
         <li><a href="#use-an-alternative-java-application-server">Use an Alternative Java Application Server</a></li>
@@ -1373,6 +1500,7 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
         <li><a href="#using-tilt-with-paketo-buildpacks">Using Tilt with Paketo Buildpacks</a></li>
       </ul>
     </li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
     <li><a href="#enable-remote-debugging">Enable Remote Debugging</a></li>
     <li><a href="#enable-jmx">Enable JMX</a></li>
     <li><a href="#enable-java-native-memory-tracking-nmt">Enable Java Native Memory Tracking (NMT)</a>
@@ -1434,7 +1562,7 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

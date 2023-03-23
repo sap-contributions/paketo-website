@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -342,6 +366,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/reference/go-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Go Buildpack</span>
@@ -457,6 +491,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul>
         <li><a href="#build-a-sample-app">Build a Sample App</a></li>
         <li><a href="#install-a-specific-httpd-version">Install a Specific HTTPD Version</a></li>
+        <li><a href="#automatically-generate-an-httpdconf">Automatically Generate an <code>httpd.conf</code></a></li>
         <li><a href="#start-an-httpd-server-at-app-launch-time">Start an HTTPD Server at App Launch Time</a></li>
       </ul>
     </li>
@@ -464,11 +499,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul>
         <li><a href="#build-a-sample-app-1">Build a Sample App</a></li>
         <li><a href="#install-a-specific-nginx-version">Install a Specific NGINX Version</a></li>
+        <li><a href="#automatically-generate-an-nginxconf">Automatically Generate an <code>nginx.conf</code></a></li>
         <li><a href="#start-an-nginx-server-at-app-launch-time">Start an NGINX Server at App Launch Time</a></li>
         <li><a href="#configure-the-nginx-server-with-launch-time-values">Configure the NGINX Server with Launch-time Values</a></li>
         <li><a href="#use-dynamic-modules-at-app-launch-time">Use Dynamic Modules at App Launch Time</a></li>
       </ul>
     </li>
+    <li><a href="#build-and-serve-a-frontend-framework-app">Build and Serve a Frontend Framework App</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
   </ul>
 </nav>
 </div>
@@ -502,10 +540,8 @@ pack build my-app --buildpack paketo-buildpacks/httpd \
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
-<p>See <a href="https://github.com/paketo-buildpacks/samples/tree/main/httpd">samples</a>
+<p>See <a href="https://github.com/paketo-buildpacks/samples/tree/main/web-servers">samples</a>
 for how to run the app.</p>
-<p><strong>NOTE: The Paketo Full builder is required because HTTPD relies on operating
-system libraries only present in the Full builder.</strong></p>
 <h3 id="install-a-specific-httpd-version" class="markup-heading">
     <a class="markup-heading__link" href="#install-a-specific-httpd-version">
         Install a Specific HTTPD Version
@@ -539,13 +575,83 @@ file:</p>
 </h4><p>Specifying the HTTP Server version through <code>buildpack.yml</code> configuration will
 be deprecated in Apache HTTP Server Buildpack v1.0.0. To migrate from using
 <code>buildpack.yml</code> please set the <code>$BP_HTTPD_VERSION</code> environment variable.</p>
-<h3 id="start-an-httpd-server-at-app-launch-time" class="markup-heading">
+<h3 id="automatically-generate-an-httpdconf" class="markup-heading">
+    <a class="markup-heading__link" href="#automatically-generate-an-httpdconf">
+        Automatically Generate an <code>httpd.conf</code>
+    </a>
+</h3><p>The Apache HTTPD Server Buildpack supports building static
+applications that do not include an  <code>httpd.conf</code>. When the <code>BP_WEB_SERVER</code>
+environment variable is set to <code>httpd</code>, the buildpack will generate an
+<code>http.conf</code> during the build process.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER=httpd
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p>It is possible to configure the generated <code>httpd.conf</code> in several ways. Each
+option is configurable with an environment variable or service binding, as seen
+below.</p>
+<h4 id="set-the-root-directory-for-static-files" class="markup-heading">
+    <a class="markup-heading__link" href="#set-the-root-directory-for-static-files">
+        Set the Root Directory for Static Files
+    </a>
+</h4><p>The <a href="https://paketo.io/docs/reference/httpd-reference/#bp_web_server_root"><code>BP_WEB_SERVER_ROOT</code></a> variable allows you to
+modify the location of the static files served by the web server. Its default
+value is <code>/workspace/public</code>. Set the <code>BP_WEB_SERVER_ROOT</code> variable to an
+absolute file path or a file path relative to <code>/workspace</code>. For example,
+setting <code>BP_WEB_SERVER_ROOT=my-build-directory</code> changes the file path of served
+files to <code>/workspace/my-build-directory</code>.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER_ROOT=htdocs
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<h4 id="enable-push-state-routing" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-push-state-routing">
+        Enable Push-State Routing
+    </a>
+</h4><p>The <code>BP_WEB_SERVER_ENABLE_PUSH_STATE</code> variable enables push state routing
+functionality. This is useful for single-page web applications.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER_ENABLE_PUSH_STATE=true
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<h4 id="redirect-http-requests-to-https" class="markup-heading">
+    <a class="markup-heading__link" href="#redirect-http-requests-to-https">
+        Redirect HTTP Requests to HTTPS
+    </a>
+</h4><p>The <code>BP_WEB_SERVER_FORCE_HTTPS</code> variable enables enforcing HTTPS for server
+connections. HTTP requests will be redirected to the corresponding HTTPS
+endpoint.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER_FORCE_HTTPS=true
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<h4 id="set-up-basic-authentication" class="markup-heading">
+    <a class="markup-heading__link" href="#set-up-basic-authentication">
+        Set Up Basic Authentication
+    </a>
+</h4><p>You are able to provide basic authentication credentials via a <a href="https://paketo.io/docs/howto/configuration/#bindings">service
+binding</a> of type <code>htpasswd</code> that specifies the contents of a
+<code>.htpasswd</code> file. The service binding should have the following directory
+structure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">binding
+</span></span><span class="line"><span class="cl">└── type
+</span></span><span class="line"><span class="cl">└── .htpasswd
+</span></span></code></pre></div><h3 id="start-an-httpd-server-at-app-launch-time" class="markup-heading">
     <a class="markup-heading__link" href="#start-an-httpd-server-at-app-launch-time">
         Start an HTTPD Server at App Launch Time
     </a>
-</h3><p>Include an <code>httpd.conf</code> file in your application&rsquo;s source code. The HTTPD Paketo buildpack
-will install the Apache HTTP Server binary <em>and</em> configure it to start when the app image
-launches.</p>
+</h3><p>Include an <code>httpd.conf</code> file in your application&rsquo;s source code or set
+<code>BP_WEB_SERVER=httpd</code> in the build environment to automatically generate one.
+The HTTPD Paketo buildpack will install the Apache HTTP Server binary <em>and</em>
+configure it to start when the app image launches.</p>
 <h2 id="nginx" class="markup-heading">
     <a class="markup-heading__link" href="#nginx">
         NGINX
@@ -569,7 +675,7 @@ pack build my-app --buildpack paketo-buildpacks/nginx \
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
-<p>See <a href="https://github.com/paketo-buildpacks/samples/tree/main/nginx">samples</a>
+<p>See <a href="https://github.com/paketo-buildpacks/samples/tree/main/web-servers">samples</a>
 for how to run the app.</p>
 <p><strong>NOTE: Though the example above uses the Paketo Base builder, this buildpack is
 also compatible with the Paketo Full builder.</strong></p>
@@ -606,27 +712,100 @@ file:</p>
 </h4><p>Specifying the NGINX version through <code>buildpack.yml</code> configuration will be
 deprecated in NGINX Server Buildpack v1.0.0.  To migrate from using
 <code>buildpack.yml</code> please set the <code>$BP_NGINX_VERSION</code> environment variable.</p>
-<h3 id="start-an-nginx-server-at-app-launch-time" class="markup-heading">
+<h3 id="automatically-generate-an-nginxconf" class="markup-heading">
+    <a class="markup-heading__link" href="#automatically-generate-an-nginxconf">
+        Automatically Generate an <code>nginx.conf</code>
+    </a>
+</h3><p>The NGINX Buildpack supports building static
+applications that do not include an  <code>nginx.conf</code>. When the <code>BP_WEB_SERVER</code>
+environment variable is set to <code>nginx</code>, the buildpack will generate an
+<code>nginx.conf</code> during the build process.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER=nginx
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p>It is possible to configure the generated <code>nginx.conf</code> in several ways. Each
+option is configurable with an environment variable or service binding, as seen
+below.</p>
+<h4 id="set-the-root-directory-for-static-files-1" class="markup-heading">
+    <a class="markup-heading__link" href="#set-the-root-directory-for-static-files-1">
+        Set the Root Directory for Static Files
+    </a>
+</h4><p>The <a href="https://paketo.io/docs/reference/nginx-reference/#bp_web_server_root"><code>BP_WEB_SERVER_ROOT</code></a> variable allows you to
+modify the location of the static files served by the web server. Its default
+value is <code>/workspace/public</code>. Set the <code>BP_WEB_SERVER_ROOT</code> variable to an
+absolute file path or a file path relative to <code>/workspace</code>. For example,
+setting <code>BP_WEB_SERVER_ROOT=my-build-directory</code> changes the file path of served
+files to <code>/workspace/my-build-directory</code>.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER_ROOT=htdocs
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<h4 id="enable-push-state-routing-1" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-push-state-routing-1">
+        Enable Push-State Routing
+    </a>
+</h4><p>The <code>BP_WEB_SERVER_ENABLE_PUSH_STATE</code> variable enables push state routing
+functionality. This is useful for single-page web applications.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER_ENABLE_PUSH_STATE=true
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<h4 id="redirect-http-requests-to-https-1" class="markup-heading">
+    <a class="markup-heading__link" href="#redirect-http-requests-to-https-1">
+        Redirect HTTP Requests to HTTPS
+    </a>
+</h4><p>The <code>BP_WEB_SERVER_FORCE_HTTPS</code> variable enables enforcing HTTPS for server
+connections. HTTP requests will be redirected to the corresponding HTTPS
+endpoint.</p>
+<div class="copyable">
+    <pre class="copyable__code">BP_WEB_SERVER_FORCE_HTTPS=true
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<h4 id="set-up-basic-authentication-1" class="markup-heading">
+    <a class="markup-heading__link" href="#set-up-basic-authentication-1">
+        Set Up Basic Authentication
+    </a>
+</h4><p>You are able to provide basic authentication credentials via a <a href="https://paketo.io/docs/howto/configuration/#bindings">service
+binding</a> of type <code>htpasswd</code> that specifies the contents of a
+<code>.htpasswd</code> file. The service binding should have the following directory
+structure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">binding
+</span></span><span class="line"><span class="cl">└── type
+</span></span><span class="line"><span class="cl">└── .htpasswd
+</span></span></code></pre></div><h3 id="start-an-nginx-server-at-app-launch-time" class="markup-heading">
     <a class="markup-heading__link" href="#start-an-nginx-server-at-app-launch-time">
         Start an NGINX Server at App Launch Time
     </a>
-</h3><p>Include an <code>nginx.conf</code> file in your application&rsquo;s source code. The NGINX Paketo
-buildpack will install the NGINX binary <em>and</em> configure it to start when the app
-image launches.</p>
+</h3><p>Include an <code>nginx.conf</code> file in your application&rsquo;s source code or set
+<code>BP_WEB_SERVER=nginx</code> in the build environment to automatically generate one.
+The NGINX Paketo buildpack will install the NGINX binary <em>and</em> configure it to
+start when the app image launches.</p>
 <h3 id="configure-the-nginx-server-with-launch-time-values" class="markup-heading">
     <a class="markup-heading__link" href="#configure-the-nginx-server-with-launch-time-values">
         Configure the NGINX Server with Launch-time Values
     </a>
 </h3><p>The NGINX buildpack supports data driven templates for nginx config. You can
 use templated variables like <code>{{port}}</code>, <code>{{env &quot;FOO&quot;}}</code> and <code>{{module &quot;ngx_stream_module&quot;}}</code> in your <code>nginx.conf</code> to use values known at launch time.</p>
-<p>A usage example can be found in the <a href="https://github.com/paketo-buildpacks/samples/tree/main/nginx"><code>samples</code> repository under the <code>nginx</code>
+<p>A usage example can be found in the <a href="https://github.com/paketo-buildpacks/samples/tree/main/web-servers/nginx-sample"><code>samples</code> repository under the <code>web-servers/nginx-sample</code>
 directory</a>.</p>
 <h4 id="port" class="markup-heading">
     <a class="markup-heading__link" href="#port">
         PORT
     </a>
-</h4><p>Use <code>{{port}}</code> to dynamically set the port at which the server will accepts requests. At launch time, the buildpack will read the value of <code>$PORT</code> to set the value of <code>{{port}}</code>.</p>
-<p>For example, to set an NGINX server to listen on <code>$PORT</code>, use the following in your <code>nginx.conf</code> file:</p>
+</h4><p>Use <code>{{port}}</code> to dynamically set the port at which the server will accepts
+requests. At launch time, the buildpack will read the value of <code>$PORT</code> to set
+the value of <code>{{port}}</code>.</p>
+<p>For example, to set an NGINX server to listen on <code>$PORT</code>, use the following in
+your <code>nginx.conf</code> file:</p>
 <div class="copyable">
     <pre class="copyable__code">server {
   listen {{port}};
@@ -646,7 +825,7 @@ directory</a>.</p>
     <a class="markup-heading__link" href="#environment-variables">
         Environment Variables
     </a>
-</h4><p>This is a generic case of the <code>{{port}}</code> directive described ealier. To use the
+</h4><p>This is a generic case of the <code>{{port}}</code> directive described earlier. To use the
 value of any environment variable <code>$FOOVAR</code> available at launch time, use the
 directive <code>{{env &quot;FOOVAR&quot;}}</code> in your <code>nginx.conf</code>.</p>
 <p>For example, include the following in your <code>nginx.conf</code> file to enable or
@@ -691,6 +870,96 @@ following to the top of your <code>nginx.conf</code> file. You do not need to pr
 <p>See the <a href="https://nginx.org/en/docs/beginners_guide.html#conf_structure">NGINX
 docs</a> for more
 information about how to set up an <code>nginx.conf</code> file.</p>
+<h2 id="build-and-serve-a-frontend-framework-app" class="markup-heading">
+    <a class="markup-heading__link" href="#build-and-serve-a-frontend-framework-app">
+        Build and Serve a Frontend Framework App
+    </a>
+</h2><p>The Paketo Web Servers buildpack combines buildpacks for Node.js with
+buildpacks for Apache HTTP Server and NGINX. As a result, it can build
+JavaScript source code into production-ready static assets, then automatically
+configure a web server to serve those assets. Check the Paketo samples
+repository for an example <a href="https://github.com/paketo-buildpacks/samples/tree/main/web-servers/javascript-frontend-sample">React app</a> with build
+instructions.</p>
+<ol>
+<li>
+<p>Define a script under the <code>&quot;scripts&quot;</code> property of your <code>package.json</code> that
+builds your production-ready static assets. Most frameworks bootstrap this
+automatically. For React, it&rsquo;s <code>&quot;build&quot;</code>.</p>
+</li>
+<li>
+<p>Find out where static assets are stored after the build script runs. It&rsquo;ll
+be a directory under the root of the app directory. For React, this is
+<code>./build</code> by default.</p>
+</li>
+<li>
+<p>Select which web server to use: NGINX or HTTPD.</p>
+</li>
+<li>
+<p><strong>[NGINX]</strong> If you chose HTTPD, <strong>skip to step 5</strong>.  Use environment
+variables to configure the server. <code>BP_NODE_RUN_SCRIPTS</code> should be set to
+the name of the <em>build script</em> from step 1. <code>BP_WEB_SERVER_ROOT</code> should be
+set to the build <em>output directory</em> from step 2. To (optionally) further
+adjust the behaviour of the NGINX server, see the NGINX How-to
+<a href="https://paketo.io/docs/howto/web-servers/#automatically-generate-an-nginxconf">guides</a>.</p>
+</li>
+</ol>
+<!-- raw HTML omitted -->
+<div class="copyable">
+    <pre class="copyable__code">pack build frontend-app --buildpack paketo-buildpacks/web-servers \
+                          --env BP_NODE_RUN_SCRIPTS=build \
+                          --env BP_WEB_SERVER=nginx \
+                          --env BP_WEB_SERVER_ROOT=build
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<!-- raw HTML omitted -->
+<ol start="5">
+<li><strong>[HTTPD]</strong> If you chose NGINX, <strong>skip to step 6</strong>. Use environment
+variables to configure the server. <code>BP_NODE_RUN_SCRIPTS</code> should be set to
+the name of the <em>build script</em> from step 1. <code>BP_WEB_SERVER_ROOT</code> should be
+set to the build <em>output directory</em> from step 2. To (optionally) further
+adjust the behaviour of the HTTPD server, see the HTTPD How-to
+<a href="https://paketo.io/docs/howto/web-servers/#automatically-generate-an-httpdconf">guides</a>.</li>
+</ol>
+<!-- raw HTML omitted -->
+<div class="copyable">
+    <pre class="copyable__code">pack build frontend-app --buildpack paketo-buildpacks/web-servers \
+                          --env BP_NODE_RUN_SCRIPTS=build \
+                          --env BP_WEB_SERVER=httpd \
+                          --env BP_WEB_SERVER_ROOT=build
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<!-- raw HTML omitted -->
+<ol start="6">
+<li>You&rsquo;re done! You can run the resulting app container to serve your frontend app with
+an automatically generated server configuration using the following command:
+<div class="copyable">
+    <pre class="copyable__code">docker run --tty --env PORT=8080 --publish 8080:8080 frontend-app
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></li>
+</ol>
+<h2 id="enable-debug-logging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-debug-logging">
+        Enable <code>DEBUG</code> logging
+    </a>
+</h2><p>Users of the Web Servers buildpack can access extra debug logs during the image build process by setting the <code>BP_LOG_LEVEL</code>
+environment variable to <code>DEBUG</code> at build time. Additional debug logs will
+appear in build logs if the relevant buildpacks have debug log lines.
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/web-servers \
+  --env BP_LOG_LEVEL=DEBUG
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
             </div>
             
@@ -703,7 +972,7 @@ information about how to set up an <code>nginx.conf</code> file.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -713,6 +982,7 @@ information about how to set up an <code>nginx.conf</code> file.</p>
       <ul>
         <li><a href="#build-a-sample-app">Build a Sample App</a></li>
         <li><a href="#install-a-specific-httpd-version">Install a Specific HTTPD Version</a></li>
+        <li><a href="#automatically-generate-an-httpdconf">Automatically Generate an <code>httpd.conf</code></a></li>
         <li><a href="#start-an-httpd-server-at-app-launch-time">Start an HTTPD Server at App Launch Time</a></li>
       </ul>
     </li>
@@ -720,11 +990,14 @@ information about how to set up an <code>nginx.conf</code> file.</p>
       <ul>
         <li><a href="#build-a-sample-app-1">Build a Sample App</a></li>
         <li><a href="#install-a-specific-nginx-version">Install a Specific NGINX Version</a></li>
+        <li><a href="#automatically-generate-an-nginxconf">Automatically Generate an <code>nginx.conf</code></a></li>
         <li><a href="#start-an-nginx-server-at-app-launch-time">Start an NGINX Server at App Launch Time</a></li>
         <li><a href="#configure-the-nginx-server-with-launch-time-values">Configure the NGINX Server with Launch-time Values</a></li>
         <li><a href="#use-dynamic-modules-at-app-launch-time">Use Dynamic Modules at App Launch Time</a></li>
       </ul>
     </li>
+    <li><a href="#build-and-serve-a-frontend-framework-app">Build and Serve a Frontend Framework App</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
   </ul>
 </nav>
 </div>
@@ -771,7 +1044,7 @@ information about how to set up an <code>nginx.conf</code> file.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

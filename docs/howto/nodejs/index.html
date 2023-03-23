@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -342,6 +366,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/reference/go-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Go Buildpack</span>
@@ -471,6 +505,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </li>
     <li><a href="#build-an-app-from-source-in-a-subdirectory">Build an App From Source in a Subdirectory</a></li>
     <li><a href="#run-scripts-during-build-phase">Run Scripts During Build Phase</a></li>
+    <li><a href="#build-angular-apps-on-stacks-with-read-only-file-systems">Build Angular apps on stacks with read-only file systems</a>
+      <ul>
+        <li><a href="#setting-an-angular-cache-path-in-angularjson">Setting an Angular cache path in <code>angular.json</code></a></li>
+      </ul>
+    </li>
     <li><a href="#build-an-app-that-uses-npm">Build an App that Uses NPM</a>
       <ul>
         <li><a href="#configure-npm-during-the-build">Configure NPM During the Build</a></li>
@@ -479,10 +518,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="#build-an-app-that-uses-yarn">Build an App that Uses Yarn</a>
       <ul>
         <li><a href="#configure-yarn-during-the-build">Configure Yarn During the Build</a></li>
-      </ul>
-    </li>
-    <li><a href="#compile-native-extensions-with-node-gyp">Compile Native Extensions with <code>node-gyp</code></a>
-      <ul>
         <li><a href="#with-pack-and-a-command-line-flag">With pack and a Command-Line Flag</a></li>
       </ul>
     </li>
@@ -491,6 +526,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#specify-a-custom-entrypoint">Specify A Custom Entrypoint</a></li>
       </ul>
     </li>
+    <li><a href="#build-and-serve-a-frontend-framework-app">Build and Serve a Frontend Framework App</a></li>
     <li><a href="#enable-process-reloading">Enable Process Reloading</a>
       <ul>
         <li><a href="#using-bp_live_reload_enabled">Using <code>BP_LIVE_RELOAD_ENABLED</code></a></li>
@@ -500,6 +536,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="#override-the-start-process-set-by-the-buildpack">Override the Start Process Set by the Buildpack</a></li>
     <li><a href="#set-environment-variables-for-app-launch-time">Set Environment Variables for App Launch Time</a></li>
     <li><a href="#add-custom-labels-to-the-app-image">Add Custom Labels to the App Image</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
   </ul>
 </nav>
 </div>
@@ -692,6 +729,35 @@ scripts to build your app into a production state.</p>
 <pre tabindex="0"><code>$BP_NODE_RUN_SCRIPTS=lint,build
 </code></pre><p>then the <code>lint</code> and then <code>build</code> scripts would be run via npm or yarn, during build phase. Note that the
 value for <code>BP_NODE_RUN_SCRIPTS</code> must be a comma separated list of script names.</p>
+<h2 id="build-angular-apps-on-stacks-with-read-only-file-systems" class="markup-heading">
+    <a class="markup-heading__link" href="#build-angular-apps-on-stacks-with-read-only-file-systems">
+        Build Angular apps on stacks with read-only file systems
+    </a>
+</h2><p>By default, when an Angular app starts up, it attempts to create a cache,
+<code>.angular/cache</code>, in the app&rsquo;s directory. On some stacks, (including the Paketo
+Jammy stacks) the app directory is read-only at runtime.  As a result, Angular
+apps will fail to start with errors like <code> Error: EACCES: permission denied, open '/workspace/.angular/cache</code>.</p>
+<p>To avoid this failure, configure Angular to create the cache in a writeable
+location, like <code>/tmp</code>.</p>
+<h3 id="setting-an-angular-cache-path-in-angularjson" class="markup-heading">
+    <a class="markup-heading__link" href="#setting-an-angular-cache-path-in-angularjson">
+        Setting an Angular cache path in <code>angular.json</code>
+    </a>
+</h3><p>To configure the location of the Angular cache, set the <code>cli.cache.path</code>
+parameter in your app&rsquo;s <code>angular.json</code>. Add the following snippet to your
+<code>angular.json</code>:</p>
+<div class="copyable">
+    <pre class="copyable__code">  &#34;cli&#34;:{
+    &#34;cache&#34;: {
+      &#34;path&#34;: &#34;/tmp/.angular/cache&#34;
+    }
+  },
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p>With this setting, the Angular app will start successfully and write cache
+artifacts to the <code>/tmp</code> directory.</p>
 <h2 id="build-an-app-that-uses-npm" class="markup-heading">
     <a class="markup-heading__link" href="#build-an-app-that-uses-npm">
         Build an App that Uses NPM
@@ -768,13 +834,6 @@ To <code>pack build</code> with the binding:
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div></p>
-<h2 id="compile-native-extensions-with-node-gyp" class="markup-heading">
-    <a class="markup-heading__link" href="#compile-native-extensions-with-node-gyp">
-        Compile Native Extensions with <code>node-gyp</code>
-    </a>
-</h2><p>If your app requires compilation of native extensions using <code>node-gyp</code>, the Node.js buildpack requires that
-you use the Paketo Full Builder. This is because <code>node-gyp</code> requires <code>python</code> which is excluded from
-the Paketo Base Builder&rsquo;s stack, and the module may require other shared objects.</p>
 <h3 id="with-pack-and-a-command-line-flag" class="markup-heading">
     <a class="markup-heading__link" href="#with-pack-and-a-command-line-flag">
         With pack and a Command-Line Flag
@@ -820,6 +879,14 @@ environment variable at build time.</p>
 </div>
 <p>The image produced by the build will run <code>node src/launchpoint.js</code>
 as its start command.</p>
+<h2 id="build-and-serve-a-frontend-framework-app" class="markup-heading">
+    <a class="markup-heading__link" href="#build-and-serve-a-frontend-framework-app">
+        Build and Serve a Frontend Framework App
+    </a>
+</h2><p>If you are using a framework that generates a static site from JavaScript source
+code (e.g. React, Vue, Angular), you can use the <a href="https://paketo.io/docs/howto/web-servers/">Paketo Web Servers
+buildpack</a> to build the static assets and automatically configure
+a web server. The Web Servers <a href="https://paketo.io/docs/howto/web-servers/#build-and-serve-a-frontend-framework-app">documentation</a> covers this use case.</p>
 <h2 id="enable-process-reloading" class="markup-heading">
     <a class="markup-heading__link" href="#enable-process-reloading">
         Enable Process Reloading
@@ -865,7 +932,8 @@ adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
         In a <code>Tiltfile</code> with the <code>pack</code> resource
     </a>
 </h4><p>You can use the Paketo Node.js buildpack with <a href="https://tilt.dev/">Tilt</a>. This example
-uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt.
+uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt.</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">pack(&#39;my-app&#39;,
   buildpacks=[&#34;paketo-buildpacks/nodejs&#34;],
@@ -877,7 +945,8 @@ uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack">
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></p>
+</div>
+<!-- raw HTML omitted -->
 <h2 id="install-a-custom-ca-certificate" class="markup-heading">
     <a class="markup-heading__link" href="#install-a-custom-ca-certificate">
         Install a Custom CA Certificate
@@ -910,6 +979,22 @@ Buildpack</a>.</p>
 instructions in the <a href="https://paketo.io/docs/howto/configuration/#applying-custom-labels">Applying Custom
 Labels</a>
 section of our configuration docs.</p>
+<h2 id="enable-debug-logging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-debug-logging">
+        Enable <code>DEBUG</code> logging
+    </a>
+</h2><p>Users of the Node.js buildpack can access extra debug logs during the image build process by setting the <code>BP_LOG_LEVEL</code>
+environment variable to <code>DEBUG</code> at build time. Additional debug logs will
+appear in build logs if the relevant buildpacks have debug log lines.
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/nodejs \
+  --env BP_LOG_LEVEL=DEBUG
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 
             </div>
@@ -923,7 +1008,7 @@ section of our configuration docs.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -947,6 +1032,11 @@ section of our configuration docs.</p>
     </li>
     <li><a href="#build-an-app-from-source-in-a-subdirectory">Build an App From Source in a Subdirectory</a></li>
     <li><a href="#run-scripts-during-build-phase">Run Scripts During Build Phase</a></li>
+    <li><a href="#build-angular-apps-on-stacks-with-read-only-file-systems">Build Angular apps on stacks with read-only file systems</a>
+      <ul>
+        <li><a href="#setting-an-angular-cache-path-in-angularjson">Setting an Angular cache path in <code>angular.json</code></a></li>
+      </ul>
+    </li>
     <li><a href="#build-an-app-that-uses-npm">Build an App that Uses NPM</a>
       <ul>
         <li><a href="#configure-npm-during-the-build">Configure NPM During the Build</a></li>
@@ -955,10 +1045,6 @@ section of our configuration docs.</p>
     <li><a href="#build-an-app-that-uses-yarn">Build an App that Uses Yarn</a>
       <ul>
         <li><a href="#configure-yarn-during-the-build">Configure Yarn During the Build</a></li>
-      </ul>
-    </li>
-    <li><a href="#compile-native-extensions-with-node-gyp">Compile Native Extensions with <code>node-gyp</code></a>
-      <ul>
         <li><a href="#with-pack-and-a-command-line-flag">With pack and a Command-Line Flag</a></li>
       </ul>
     </li>
@@ -967,6 +1053,7 @@ section of our configuration docs.</p>
         <li><a href="#specify-a-custom-entrypoint">Specify A Custom Entrypoint</a></li>
       </ul>
     </li>
+    <li><a href="#build-and-serve-a-frontend-framework-app">Build and Serve a Frontend Framework App</a></li>
     <li><a href="#enable-process-reloading">Enable Process Reloading</a>
       <ul>
         <li><a href="#using-bp_live_reload_enabled">Using <code>BP_LIVE_RELOAD_ENABLED</code></a></li>
@@ -976,6 +1063,7 @@ section of our configuration docs.</p>
     <li><a href="#override-the-start-process-set-by-the-buildpack">Override the Start Process Set by the Buildpack</a></li>
     <li><a href="#set-environment-variables-for-app-launch-time">Set Environment Variables for App Launch Time</a></li>
     <li><a href="#add-custom-labels-to-the-app-image">Add Custom Labels to the App Image</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
   </ul>
 </nav>
 </div>
@@ -1022,7 +1110,7 @@ section of our configuration docs.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -342,6 +366,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/reference/go-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Go Buildpack</span>
@@ -473,6 +507,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="#override-the-start-process-set-by-the-buildpack">Override the Start Process Set by the Buildpack</a></li>
     <li><a href="#set-environment-variables-for-app-launch-time">Set Environment Variables for App Launch Time</a></li>
     <li><a href="#add-custom-labels-to-the-app-image">Add Custom Labels to the App Image</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
+    <li><a href="#access-the-software-bill-of-materials">Access the software bill of materials</a></li>
   </ul>
 </nav>
 </div>
@@ -533,12 +569,13 @@ that specific version as long as it is supported.</p>
     <a class="markup-heading__link" href="#use-a-package-manager">
         Use a Package Manager
     </a>
-</h2><p>With the Python CNB, there are three options available for package management
+</h2><p>With the Python CNB, there are four options available for package management
 depending on your application:</p>
 <ul>
 <li>Using <a href="https://pip.pypa.io">Pip</a></li>
 <li>Using <a href="https://pypi.org/project/pipenv">Pipenv</a></li>
 <li>Using <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a></li>
+<li>Using <a href="https://python-poetry.org/">Poetry</a></li>
 </ul>
 <p>You can find specific information for each option below.</p>
 <h3 id="pip" class="markup-heading">
@@ -550,7 +587,7 @@ Python apps.  Including a valid <code>requirements.txt</code> file at the root o
 source code triggers the pip installation process by the buildpack. The
 buildpack will install the application packages and make it available to the
 app.</p>
-<p>The buidpack allows you to configure the version of Pip to be used in the
+<p>The buildpack allows you to configure the version of Pip to be used in the
 installation process. You can set this using the <code>$BP_PIP_VERSION</code> variable
 during build. When specifying a version of Pip, you must choose a version that
 is available within the buildpack. The supported versions can be found in the
@@ -563,7 +600,7 @@ is available within the buildpack. The supported versions can be found in the
 <code>Pipfile</code> file at the root of your app source code triggers the pipenv
 installation process by the buildpack. The buildpack will install the
 application packages and make it available to the app.</p>
-<p>The buidpack allows you to configure the version of Pipenv to be used in the
+<p>The buildpack allows you to configure the version of Pipenv to be used in the
 installation process. You can set this using the <code>$BP_PIPENV_VERSION</code> variable
 during build. When specifying a version of Pipenv, you must choose a version
 that is available within the buildpack. The supported versions can be found in the
@@ -576,7 +613,7 @@ this as discussed in <a href="#install-a-specific-cpython-version">this section 
         Miniconda
     </a>
 </h3><p>Miniconda is a package management and environment management system supported
-by the Python buildpack. The builpack will create or update a conda environment
+by the Python buildpack. The buildpack will create or update a conda environment
 from an <code>environment.yml</code> file or a <code>package-list.txt</code> file located at the root
 of the app source code.</p>
 <p>Configuring a version of miniconda is not supported.</p>
@@ -640,7 +677,8 @@ adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
         In a <code>Tiltfile</code> with the <code>pack</code> resource
     </a>
 </h4><p>You can use the Paketo Python buildpack with <a href="https://tilt.dev/">Tilt</a>. This example
-uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt.
+uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt.</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">pack(&#39;my-app&#39;,
   buildpacks=[&#34;paketo-buildpacks/python&#34;],
@@ -652,7 +690,8 @@ uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack">
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></p>
+</div>
+<!-- raw HTML omitted -->
 <h3 id="setting-a-reloadable-start-command" class="markup-heading">
     <a class="markup-heading__link" href="#setting-a-reloadable-start-command">
         Setting a reloadable start command
@@ -701,6 +740,37 @@ Buildpack</a>.</p>
 instructions in the <a href="https://paketo.io/docs/howto/configuration/#applying-custom-labels">Applying Custom
 Labels</a>
 section of our configuration docs.</p>
+<h2 id="enable-debug-logging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-debug-logging">
+        Enable <code>DEBUG</code> logging
+    </a>
+</h2><p>Users of the Python buildpack can access extra debug logs during the image build process by setting the <code>BP_LOG_LEVEL</code>
+environment variable to <code>DEBUG</code> at build time. Additional debug logs will
+appear in build logs if the relevant buildpacks have debug log lines.
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/python \
+  --env BP_LOG_LEVEL=DEBUG
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
+<h2 id="access-the-software-bill-of-materials" class="markup-heading">
+    <a class="markup-heading__link" href="#access-the-software-bill-of-materials">
+        Access the software bill of materials
+    </a>
+</h2><p>The Python buildpack includes support for the software bill of materials (SBOM).
+Check out the <a href="https://paketo.io/docs/howto/sbom/">SBOM how-to documentation</a> for
+details on how to access the SBOM supplied by the buildpacks.</p>
+<p>SBOMs will be generated for applications which leverage <code>Pip</code>, <code>Pipenv</code>, or <code>Poetry</code>.</p>
+<p>Currently the Python buildpack has limited support for generating an SBOM for
+applications which leverage <code>Miniconda</code>. Specifically - in order to generate an
+SBOM for a <code>Miniconda</code> application, applications must vendor their dependencies
+in addition to defining them via a <code>package-list.txt</code> file. <code>Miniconda</code>
+applications that declare their dependencies via a <code>package-list.txt</code> file but
+do not vendor them will result in an empty SBOM. This is due to a limitation in
+the upstream SBOM generation library (Syft).</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 
             </div>
@@ -714,7 +784,7 @@ section of our configuration docs.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -740,6 +810,8 @@ section of our configuration docs.</p>
     <li><a href="#override-the-start-process-set-by-the-buildpack">Override the Start Process Set by the Buildpack</a></li>
     <li><a href="#set-environment-variables-for-app-launch-time">Set Environment Variables for App Launch Time</a></li>
     <li><a href="#add-custom-labels-to-the-app-image">Add Custom Labels to the App Image</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
+    <li><a href="#access-the-software-bill-of-materials">Access the software bill of materials</a></li>
   </ul>
 </nav>
 </div>
@@ -786,7 +858,7 @@ section of our configuration docs.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -342,6 +366,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/reference/go-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Go Buildpack</span>
@@ -454,7 +488,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <nav id="TableOfContents">
   <ul>
     <li><a href="#build-a-sample-app">Build a Sample App</a></li>
-    <li><a href="#install-specific-net-runtime-and-aspnet-versions">Install Specific .NET Runtime and ASP.Net Versions</a>
+    <li><a href="#install-specific-net-runtime-and-aspnet-versions">Install Specific .NET Runtime and ASP.NET Versions</a>
       <ul>
         <li><a href="#using-bp_dotnet_framework_version">Using <code>BP_DOTNET_FRAMEWORK_VERSION</code></a></li>
         <li><a href="#using-runtimeconfigjson">Using runtimeconfig.json</a></li>
@@ -467,7 +501,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#deprecated-using-buildpackyml-1">Deprecated: Using buildpack.yml</a></li>
       </ul>
     </li>
-    <li><a href="#build-an-app-from-source-in-a-subdirectory">Build an App from Source in a Subdirectory</a>
+    <li><a href="#build-one-project-in-a-multi-project-solution">Build one project in a multi-project solution</a>
       <ul>
         <li><a href="#using-bp_dotnet_project_path">Using <code>BP_DOTNET_PROJECT_PATH</code></a></li>
         <li><a href="#deprecated-using-buildpackyml-2">Deprecated: Using buildpack.yml</a></li>
@@ -488,9 +522,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#using-bp_live_reload_enabled">Using <code>BP_LIVE_RELOAD_ENABLED</code></a></li>
       </ul>
     </li>
+    <li><a href="#access-the-software-bill-of-materials">Access the Software Bill of Materials</a></li>
+    <li><a href="#enable-remote-debugging">Enable Remote Debugging</a>
+      <ul>
+        <li><a href="#using-bp_debug_enabled">Using <code>BP_DEBUG_ENABLED</code></a></li>
+        <li><a href="#setting-up-visual-studio-code-for-remote-debugging">Setting up Visual Studio Code for Remote Debugging</a></li>
+        <li><a href="#start-debugging-in-visual-studio-code">Start Debugging in Visual Studio Code</a></li>
+      </ul>
+    </li>
     <li><a href="#install-a-custom-ca-certificate">Install a Custom CA Certificate</a></li>
     <li><a href="#override-the-start-process-set-by-the-buildpack">Override the Start Process Set by the Buildpack</a></li>
     <li><a href="#set-environment-variables-for-app-launch-time">Set Environment Variables for App Launch Time</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
     <li><a href="#add-custom-labels-to-the-app-image">Add Custom Labels to the App Image</a></li>
   </ul>
 </nav>
@@ -522,28 +565,28 @@ pack build my-app --buildpack paketo-buildpacks/dotnet-core \
 also compatible with the Paketo Full builder.</strong></p>
 <h2 id="install-specific-net-runtime-and-aspnet-versions" class="markup-heading">
     <a class="markup-heading__link" href="#install-specific-net-runtime-and-aspnet-versions">
-        Install Specific .NET Runtime and ASP.Net Versions
+        Install Specific .NET Runtime and ASP.NET Versions
     </a>
-</h2><p>The .Net Core Runtime and .Net Core ASP.Net Buildpacks allow you to specify a
-version of the .Net Core Runtime and ASP.Net to use during deployment. This
+</h2><p>The .NET Core Runtime and .NET Core ASP.NET Buildpacks allow you to specify a
+version of the .NET Core Runtime and ASP.NET to use during deployment. This
 version can be specified in several ways including through a
 <code>runtimeconfig.json</code>, MSBuild Project file, or build-time environment
-variables. When specifying a version of the .Net Core Runtime and ASP.Net, you
+variables. When specifying a version of the .NET Core Runtime and ASP.NET, you
 must choose a version that is available within these buildpacks. These versions
 can be found in the <a href="
-https://github.com/paketo-buildpacks/dotnet-core-runtime/releases">.Net Core Runtime release
+https://github.com/paketo-buildpacks/dotnet-core-runtime/releases">.NET Core Runtime release
 notes</a> and <a href="
-https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases">.Net Core ASP.Net release
+https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases">.NET Core ASP.NET release
 notes</a>.</p>
-<p>.Net Core ASP.Net will only be included in the build process if your
+<p>.NET Core ASP.NET will only be included in the build process if your
 application declares its Runtime Framework as either <code>Microsoft.AspNetCore.App</code>
 or <code>Microsoft.AspNetCore.All</code>.</p>
 <h3 id="using-bp_dotnet_framework_version" class="markup-heading">
     <a class="markup-heading__link" href="#using-bp_dotnet_framework_version">
         Using <code>BP_DOTNET_FRAMEWORK_VERSION</code>
     </a>
-</h3><p>To configure the buildpack to use a certain version of the .Net Core Runtime
-and ASP.Net when deploying your app, set the <code>$BP_DOTNET_FRAMEWORK</code> environment
+</h3><p>To configure the buildpack to use a certain version of the .NET Core Runtime
+and ASP.NET when deploying your app, set the <code>$BP_DOTNET_FRAMEWORK</code> environment
 variable at build time, either by passing a flag to the
 <a href="https://buildpacks.io/docs/concepts/components/platform">platform</a> or by adding it to your <code>project.toml</code>. See the
 Cloud Native Buildpacks <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor/">documentation</a> to learn more about
@@ -572,15 +615,15 @@ Cloud Native Buildpacks <a href="https://buildpacks.io/docs/app-developer-guide/
 </div>
 <p><strong>Note</strong>: If you specify a particular version using the above environment
 variable, the buildpack <strong>will not</strong> run runtime version roll-forward logic. To
-learn more about roll-forward logic, see the <a href="https://docs.microsoft.com/en-us/dotnet/core/versions/selection#framework-dependent-apps-roll-forward">Microsoft .Net Runtime
+learn more about roll-forward logic, see the <a href="https://docs.microsoft.com/en-us/dotnet/core/versions/selection#framework-dependent-apps-roll-forward">Microsoft .NET Runtime
 documentation</a>.</p>
 <h3 id="using-runtimeconfigjson" class="markup-heading">
     <a class="markup-heading__link" href="#using-runtimeconfigjson">
         Using runtimeconfig.json
     </a>
 </h3><p>If you are using a
-<a href="https://docs.microsoft.com/en-us/dotnet/core/run-time-config/"><code>runtimeconfig.json</code></a> file, you can specify the .Net
-Core Runtime version within that file. To configure the buildpack to use .Net
+<a href="https://docs.microsoft.com/en-us/dotnet/core/run-time-config/"><code>runtimeconfig.json</code></a> file, you can specify the .NET
+Core Runtime version within that file. To configure the buildpack to use .NET
 Core Runtime v2.1.14 when deploying your app, include the values below in your
 <code>runtimeconfig.json</code> file:</p>
 <div class="copyable">
@@ -599,9 +642,9 @@ Core Runtime v2.1.14 when deploying your app, include the values below in your
     <a class="markup-heading__link" href="#using-a-project-file">
         Using a Project file
     </a>
-</h3><p>If you are using a Project file (eg. <code>*.csproj</code>, <code>*.fsproj</code>, or <code>*.vbproj</code>), you can specify
-the .Net Core Runtime version within that file. To configure the buildpack to
-use .Net Core Runtime v2.1.14 when deploying your app, include the values below
+</h3><p>If you are using a Project file (e.g. <code>*.csproj</code>, <code>*.fsproj</code>, or <code>*.vbproj</code>), you can specify
+the .NET Core Runtime version within that file. To configure the buildpack to
+use .NET Core Runtime v2.1.14 when deploying your app, include the values below
 in your Project file:</p>
 <div class="copyable">
     <pre class="copyable__code">&lt;Project&gt;
@@ -613,11 +656,12 @@ in your Project file:</p>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
-<p>Alternatively, for applications that do not rely upon a specific .Net Core
+<p>Alternatively, for applications that do not rely upon a specific .NET Core
 Runtime patch version, you can specify the Target Framework and the buildpack
-will choose the appropriate .Net Core Runtime version. To configure the
-buildpack to use a .Net Core Runtime version in the 2.1 .Net Core Target Framework
+will choose the appropriate .NET Core Runtime version. To configure the
+buildpack to use a .NET Core Runtime version in the 2.1 .NET Core Target Framework
 when deploying your app, include the values below in your Project file:</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">&lt;Project&gt;
   &lt;PropertyGroup&gt;
@@ -628,62 +672,86 @@ when deploying your app, include the values below in your Project file:</p>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
-<p>For more details about specifying a .Net Core version using a Project file,
+<!-- raw HTML omitted -->
+<p>For more details about specifying a .NET Core version using a Project file,
 please review the <a href="https://docs.microsoft.com/en-us/dotnet/core/versions/selection">Microsoft documentation</a>.</p>
 <h3 id="deprecated-using-buildpackyml" class="markup-heading">
     <a class="markup-heading__link" href="#deprecated-using-buildpackyml">
         Deprecated: Using buildpack.yml
     </a>
-</h3><p>Specifying the .Net Core Framework version through <code>buildpack.yml</code>
-configuration will be deprecated in .Net Core Runtime and .Net Core ASPNET
+</h3><p>Specifying the .NET Core Framework version through <code>buildpack.yml</code>
+configuration will be deprecated in .NET Core Runtime and .NET Core ASP.NET
 Buildpacks v1.0.0.  To migrate from using <code>buildpack.yml</code>, please set the
 <code>BP_DOTNET_FRAMEWORK_VERSION</code> environment variable.</p>
 <h2 id="install-a-specific-net-sdk-version" class="markup-heading">
     <a class="markup-heading__link" href="#install-a-specific-net-sdk-version">
         Install a Specific .NET SDK Version
     </a>
-</h2><p>By default, the .Net Core SDK Buildpack installs the latest available patch
-version of the SDK that is compatible with the installed .Net Core runtime.
+</h2><p>By default, the .NET Core SDK Buildpack installs the latest available patch
+version of the SDK that is compatible with the installed .NET Core runtime.
 The available SDK versions for each buildpack release can be found in the
 <a href="
 https://github.com/paketo-buildpacks/dotnet-core-sdk/releases">release notes</a>.</p>
-<p>However, the .Net Core SDK version can be explicitly set by specifying a
-version in a <code>buildpack.yml</code> file.</p>
 <h3 id="deprecated-using-buildpackyml-1" class="markup-heading">
     <a class="markup-heading__link" href="#deprecated-using-buildpackyml-1">
         Deprecated: Using buildpack.yml
     </a>
-</h3><p>Specifying the .Net Core SDK version through <code>buildpack.yml</code> configuration will
-be deprecated in .Net Core SDK Buildpack v1.0.0.</p>
+</h3><p>Specifying the .NET Core SDK version through <code>buildpack.yml</code> configuration will
+be deprecated in .NET Core SDK Buildpack v1.0.0.</p>
 <p>Because versions of the .NET Core runtime and .NET Core SDK dependencies are so
 tightly coupled, most users should instead use the
 <code>BP_DOTNET_FRAMEWORK_VERSION</code> environment variable to specify which version of
 the .NET Core runtime that the .NET Core Runtime Buildpack should install. The
-.Net Core SDK buildpack will automatically install an SDK version that is
+.NET Core SDK buildpack will automatically install an SDK version that is
 compatible with the selected .NET Core runtime version.</p>
-<h2 id="build-an-app-from-source-in-a-subdirectory" class="markup-heading">
-    <a class="markup-heading__link" href="#build-an-app-from-source-in-a-subdirectory">
-        Build an App from Source in a Subdirectory
+<h2 id="build-one-project-in-a-multi-project-solution" class="markup-heading">
+    <a class="markup-heading__link" href="#build-one-project-in-a-multi-project-solution">
+        Build one project in a multi-project solution
     </a>
-</h2><p>By default, the Paketo .NET buildpack will consider the root directory of
-your codebase to be the project directory. This directory should contain a C#,
-F#, or Visual Basic Project file. If your project directory is not located at
-the root of your source code you will need to set a custom project path.</p>
+</h2><p>By default, the Paketo .NET buildpack will consider the root of the provided
+source code to be the root of the startup project you want to build.  This
+directory should contain a C#, F#, or Visual Basic Project file. If your
+startup project directory is not located at the root of your solution, you will
+need to specify a project path.</p>
+<p>For example, the following directory structure reflects a common .NET project setup, in
+which the startup project, <code>App</code>, depends on other projects in the solution:
+<code>ComponentProject</code> and <code>OtherComponentProject</code>.</p>
+<pre tabindex="0"><code>./MultiProjectApp
+├── MultiProjectApp.sln
+├── ComponentProject
+│   ├── Component.cs
+│   └── ComponentProject.csproj
+├── OtherComponentProject
+│   ├── OtherComponent.cs
+│   └── OtherComponentProject.csproj
+└── App
+    ├── Program.cs
+    ├── appsettings.Development.json
+    ├── appsettings.json
+    └──  App.csproj
+</code></pre><p>To build the <code>App</code> project, <code>pack build</code> from the root of the <code>MultiProjectApp</code>
+directory and specify <code>App</code> as the project to build using the
+<code>BP_DOTNET_PROJECT_PATH</code> environment variable.</p>
+<p><strong>Note:</strong> <em>Do not</em> use <code>pack build myapp --path=./App</code> to build the <code>App</code>
+project. Using the <code>--path</code> flag will exclude <code>ComponentProject</code> and
+<code>OtherComponentProject</code> from the build container. If <code>App</code> depends on those
+components, the build will fail when publishing <code>App</code>, because its dependencies
+will not be present in the build container.</p>
 <h3 id="using-bp_dotnet_project_path" class="markup-heading">
     <a class="markup-heading__link" href="#using-bp_dotnet_project_path">
         Using <code>BP_DOTNET_PROJECT_PATH</code>
     </a>
-</h3><p>You can specify a project path by setting the <code>$BP_DOTNET_PROJECT_PATH</code>
-environment variable at build time, either by passing a flag to the
-<a href="https://buildpacks.io/docs/concepts/components/platform">platform</a> or by adding it to your <code>project.toml</code>. See the
-Cloud Native Buildpacks <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor/">documentation</a> to learn more about
-<code>project.toml</code> files.</p>
+</h3><p>You can specify the path to the startup project you want to build by setting
+the <code>$BP_DOTNET_PROJECT_PATH</code> environment variable at build time, either by
+passing a flag to the <a href="https://buildpacks.io/docs/concepts/components/platform">platform</a> or by adding it to your
+<code>project.toml</code>. See the Cloud Native Buildpacks <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor/">documentation</a>
+to learn more about <code>project.toml</code> files.</p>
 <h4 id="with-a-pack-build-flag-1" class="markup-heading">
     <a class="markup-heading__link" href="#with-a-pack-build-flag-1">
         With a <code>pack build</code> flag
     </a>
 </h4><div class="copyable">
-    <pre class="copyable__code">pack build my-app --env BP_DOTNET_PROJECT_PATH=./src
+    <pre class="copyable__code">pack build my-app --env BP_DOTNET_PROJECT_PATH=./App
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -695,7 +763,7 @@ Cloud Native Buildpacks <a href="https://buildpacks.io/docs/app-developer-guide/
 </h4><div class="copyable">
     <pre class="copyable__code">[[ build.env ]]
   name = &#39;BP_DOTNET_PROJECT_PATH&#39;
-  value = &#39;./src&#39;
+  value = &#39;./App&#39;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -765,7 +833,7 @@ containing a <code>nuget.config</code> file can be provided. In addition to the
 documentation for more details on service bindings.</p>
 <p>The binding will be made available as a &ldquo;user-level&rdquo; NuGet configuration at
 <code>$HOME/.nuget/NuGet/NuGet.Config</code> during the build process. The  configuration
-applies across all operations involving NuGet, but will be overriden by
+applies across all operations involving NuGet, but will be overridden by
 project-level configurations.</p>
 <p>The resulting command will look like:
 <div class="copyable">
@@ -826,7 +894,8 @@ adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
         In a <code>Tiltfile</code> with the <code>pack</code> resource
     </a>
 </h4><p>You can use the Paketo .NET Core buildpack with <a href="https://tilt.dev/">Tilt</a>. This example
-uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt, and shows how to configure watched files.
+uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt, and shows how to configure watched files.</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">pack(
   &#39;myapp&#39;,
@@ -853,7 +922,8 @@ local_resource(
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></p>
+</div>
+<!-- raw HTML omitted -->
 <h5 id="notes" class="markup-heading">
     <a class="markup-heading__link" href="#notes">
         Notes
@@ -861,7 +931,9 @@ local_resource(
 </h5><ul>
 <li>The .NET Paketo buildpack works best with Tilt and hot reloading when all of
 your app&rsquo;s source code is in a subdirectory (<code>./src</code> in the above example).
+<!-- raw HTML omitted -->
 Use <a href="#build-an-app-from-source-in-a-subdirectory"><code>BP_DOTNET_PROJECT_PATH</code></a>
+<!-- raw HTML omitted -->
 to indicate the location of the source code.</li>
 <li>The .NET Paketo buildpack will not recompile your source code inside the
 running app container. You must use a <code>local_resource</code> to rebuild your app
@@ -870,11 +942,132 @@ when source code changes, and copy the built artifacts into the container with
 <li>The <code>cmd</code> that is run as part of the <code>dotnet-publish</code> local resource matches
 the command that the .NET Core buildpack runs to build the app.</li>
 </ul>
+<h2 id="access-the-software-bill-of-materials" class="markup-heading">
+    <a class="markup-heading__link" href="#access-the-software-bill-of-materials">
+        Access the Software Bill of Materials
+    </a>
+</h2><p>The .NET Core buildpack includes support for the software bill of materials (SBOM).
+Check out the <a href="https://paketo.io/docs/howto/sbom/">SBOM how-to documentation</a> for details on how to
+access the SBOM supplied by the buildpacks.</p>
+<p>SBOMs will be generated for all supported .NET Core applications.</p>
+<h2 id="enable-remote-debugging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-remote-debugging">
+        Enable Remote Debugging
+    </a>
+</h2><p>Remote debugging can provide insight into complex program logic and
+interactions in remote environments. This practice is supported for .NET Core
+applications via the Visual Studio Debugger (<code>vsdbg</code>), which may be included in
+your application image via the <code>BP_DEBUG_ENABLED</code> environment variable. The
+debugger can attach to a running .NET Core process and be bound to a client-side
+debugger via STDIN across a connection invoked via <code>docker exec</code>.</p>
+<h3 id="using-bp_debug_enabled" class="markup-heading">
+    <a class="markup-heading__link" href="#using-bp_debug_enabled">
+        Using <code>BP_DEBUG_ENABLED</code>
+    </a>
+</h3><p>To enable remote debugging, set the <code>$BP_DEBUG_ENABLED</code> environment variable at
+build time, either by passing a flag to the <a href="https://buildpacks.io/docs/concepts/components/platform">platform</a> or
+by adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
+<a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor/">documentation</a> to learn more about <code>project.toml</code> files.</p>
+<h4 id="with-a-pack-build-flag-3" class="markup-heading">
+    <a class="markup-heading__link" href="#with-a-pack-build-flag-3">
+        With a <code>pack build</code> flag
+    </a>
+</h4><!-- raw HTML omitted -->
+<div class="copyable">
+    <pre class="copyable__code">pack build myapp --env BP_DEBUG_ENABLED=true
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<!-- raw HTML omitted -->
+<h4 id="in-a-projecttoml-file-3" class="markup-heading">
+    <a class="markup-heading__link" href="#in-a-projecttoml-file-3">
+        In a <code>project.toml</code> file
+    </a>
+</h4><!-- raw HTML omitted -->
+<div class="copyable">
+    <pre class="copyable__code">[[ build.env ]]
+  name = &#39;BP_DEBUG_ENABLED&#39;
+  value = &#39;true&#39;
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<!-- raw HTML omitted -->
+<h3 id="setting-up-visual-studio-code-for-remote-debugging" class="markup-heading">
+    <a class="markup-heading__link" href="#setting-up-visual-studio-code-for-remote-debugging">
+        Setting up Visual Studio Code for Remote Debugging
+    </a>
+</h3><p>Visual Studio Code can be configured to <a href="https://github.com/OmniSharp/omnisharp-vscode/wiki/Attaching-to-remote-processes">attach a remote debugging session
+into a running container via <code>docker exec</code></a>.
+Once your application is built, follow the steps below to set up Visual Studio
+Code for remote debugging.</p>
+<ol>
+<li>Add <code>.vscode/launch.json</code> to app source directory</li>
+</ol>
+<!-- raw HTML omitted -->
+<div class="copyable">
+    <pre class="copyable__code">{
+  &#34;configurations&#34;: [
+    {
+      &#34;name&#34;: &#34;.NET Core Docker Attach&#34;,
+      &#34;type&#34;: &#34;coreclr&#34;,
+      &#34;request&#34;: &#34;attach&#34;,
+      &#34;processId&#34;: &#34;${command:pickRemoteProcess}&#34;,
+      &#34;pipeTransport&#34;: {
+        &#34;pipeProgram&#34;: &#34;docker&#34;,
+        &#34;pipeArgs&#34;: [ &#34;exec&#34;, &#34;-i&#34;, &#34;&lt;container id&gt;&#34; ],
+        &#34;debuggerPath&#34;: &#34;/cnb/lifecycle/launcher vsdbg&#34;,
+        &#34;pipeCwd&#34;: &#34;${workspaceRoot}&#34;,
+        &#34;quoteArgs&#34;: false
+      },
+      &#34;sourceFileMap&#34;: {
+        &#34;/workspace&#34;: &#34;${workspaceRoot}&#34;
+      }
+    }
+  ]
+}
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<!-- raw HTML omitted -->
+<ol start="2">
+<li>Install the Microsoft C# extension</li>
+</ol>
+<h3 id="start-debugging-in-visual-studio-code" class="markup-heading">
+    <a class="markup-heading__link" href="#start-debugging-in-visual-studio-code">
+        Start Debugging in Visual Studio Code
+    </a>
+</h3><ol>
+<li>Run the app with <code>docker run -p 8080:8080 &lt;app-image-name&gt;</code></li>
+<li>Open a browser window to <code>http://localhost:8080</code></li>
+<li>Update <code>&lt;container id&gt;</code> field in <code>launch.json</code> with actual container id</li>
+</ol>
+<p>From here you might set a breakpoint and start debugging via the menu bar or by
+pressing <code>F5</code>. In the event that you are prompted to select a process to attach
+to, select the name of your app process if it is listed. See the Visual Studio Code
+debugging <a href="https://code.visualstudio.com/docs/editor/debugging">docs</a> for more about
+how to use the debugger.</p>
+<h5 id="notes-1" class="markup-heading">
+    <a class="markup-heading__link" href="#notes-1">
+        Notes
+    </a>
+</h5><ul>
+<li>The steps above are intended for remote debugging in a non-production
+context. Setting <code>BP_DEBUG_ENABLED</code> to <code>true</code> will ensure that a .NET app is
+published in Debug configuration instead of Release configuration and is the
+currently the only official way to include Visual Studio Debugger in your
+application image. It is possible to <a href="https://github.com/OmniSharp/omnisharp-vscode/wiki/Attaching-to-remote-processes#building-and-deploying-the-application-and-pdbs">perform remote debugging on
+Release-configured
+apps</a>
+but that workflow is not officially supported by the .NET Core Buildpack.</li>
+</ul>
 <h2 id="install-a-custom-ca-certificate" class="markup-heading">
     <a class="markup-heading__link" href="#install-a-custom-ca-certificate">
         Install a Custom CA Certificate
     </a>
-</h2><p>.Net Core Buildpack users can provide their own CA certificates and have them
+</h2><p>.NET Core Buildpack users can provide their own CA certificates and have them
 included in the container root truststore at build-time and runtime by
 following the instructions outlined in the <a href="https://paketo.io/docs/howto/configuration/#ca-certificates">CA
 Certificates</a>
@@ -883,7 +1076,7 @@ section of our configuration docs.</p>
     <a class="markup-heading__link" href="#override-the-start-process-set-by-the-buildpack">
         Override the Start Process Set by the Buildpack
     </a>
-</h2><p>.Net Core Buildpack users can set custom start processes for their app image by
+</h2><p>.NET Core Buildpack users can set custom start processes for their app image by
 following the instructions in the
 <a href="https://paketo.io/docs/howto/configuration/#procfiles">Procfiles</a> section
 of our configuration docs.</p>
@@ -891,17 +1084,33 @@ of our configuration docs.</p>
     <a class="markup-heading__link" href="#set-environment-variables-for-app-launch-time">
         Set Environment Variables for App Launch Time
     </a>
-</h2><p>.Net Core Buildpack users can embed launch-time environment variables in their
+</h2><p>.NET Core Buildpack users can embed launch-time environment variables in their
 app image by following the documentation for the <a href="https://github.com/paketo-buildpacks/environment-variables/blob/main/README.md">Environment Variables
 Buildpack</a>.</p>
+<h2 id="enable-debug-logging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-debug-logging">
+        Enable <code>DEBUG</code> logging
+    </a>
+</h2><p>Users of the .NET Core buildpack can access extra debug logs during the image build process by setting the <code>BP_LOG_LEVEL</code>
+environment variable to <code>DEBUG</code> at build time. Additional debug logs will
+appear in build logs if the relevant buildpacks have debug log lines.
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/dotnet-core \
+  --env BP_LOG_LEVEL=DEBUG
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
 <h2 id="add-custom-labels-to-the-app-image" class="markup-heading">
     <a class="markup-heading__link" href="#add-custom-labels-to-the-app-image">
         Add Custom Labels to the App Image
     </a>
-</h2><p>.Net Core Buildpack users can add labels to their app image by following the
+</h2><p>.NET Core Buildpack users can add labels to their app image by following the
 instructions in the <a href="https://paketo.io/docs/howto/configuration/#applying-custom-labels">Applying Custom
 Labels</a>
 section of our configuration docs.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 
             </div>
@@ -915,14 +1124,14 @@ section of our configuration docs.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#build-a-sample-app">Build a Sample App</a></li>
-    <li><a href="#install-specific-net-runtime-and-aspnet-versions">Install Specific .NET Runtime and ASP.Net Versions</a>
+    <li><a href="#install-specific-net-runtime-and-aspnet-versions">Install Specific .NET Runtime and ASP.NET Versions</a>
       <ul>
         <li><a href="#using-bp_dotnet_framework_version">Using <code>BP_DOTNET_FRAMEWORK_VERSION</code></a></li>
         <li><a href="#using-runtimeconfigjson">Using runtimeconfig.json</a></li>
@@ -935,7 +1144,7 @@ section of our configuration docs.</p>
         <li><a href="#deprecated-using-buildpackyml-1">Deprecated: Using buildpack.yml</a></li>
       </ul>
     </li>
-    <li><a href="#build-an-app-from-source-in-a-subdirectory">Build an App from Source in a Subdirectory</a>
+    <li><a href="#build-one-project-in-a-multi-project-solution">Build one project in a multi-project solution</a>
       <ul>
         <li><a href="#using-bp_dotnet_project_path">Using <code>BP_DOTNET_PROJECT_PATH</code></a></li>
         <li><a href="#deprecated-using-buildpackyml-2">Deprecated: Using buildpack.yml</a></li>
@@ -956,9 +1165,18 @@ section of our configuration docs.</p>
         <li><a href="#using-bp_live_reload_enabled">Using <code>BP_LIVE_RELOAD_ENABLED</code></a></li>
       </ul>
     </li>
+    <li><a href="#access-the-software-bill-of-materials">Access the Software Bill of Materials</a></li>
+    <li><a href="#enable-remote-debugging">Enable Remote Debugging</a>
+      <ul>
+        <li><a href="#using-bp_debug_enabled">Using <code>BP_DEBUG_ENABLED</code></a></li>
+        <li><a href="#setting-up-visual-studio-code-for-remote-debugging">Setting up Visual Studio Code for Remote Debugging</a></li>
+        <li><a href="#start-debugging-in-visual-studio-code">Start Debugging in Visual Studio Code</a></li>
+      </ul>
+    </li>
     <li><a href="#install-a-custom-ca-certificate">Install a Custom CA Certificate</a></li>
     <li><a href="#override-the-start-process-set-by-the-buildpack">Override the Start Process Set by the Buildpack</a></li>
     <li><a href="#set-environment-variables-for-app-launch-time">Set Environment Variables for App Launch Time</a></li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
     <li><a href="#add-custom-labels-to-the-app-image">Add Custom Labels to the App Image</a></li>
   </ul>
 </nav>
@@ -1006,7 +1224,7 @@ section of our configuration docs.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

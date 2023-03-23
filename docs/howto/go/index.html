@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="stylesheet" href="/css/main.min.c1e13d3a5b984aafbd20517ebe772e9978a898c0f2f3afdabe8338741b01df3b.css">
+<link rel="stylesheet" href="/css/main.min.5fca482f9e905423be014449d8d4bdc9f5cd05daa7e24db00a1e7623f2180720.css">
 
 </head>
 
@@ -62,6 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="nav__linkarea text--400">
                     <a class="nav-link" href="/docs">docs</a>
                     <a class="nav-link" href="/community">community</a>
+                    <a class="nav-link" href="/resources">resources</a>
                     <a class="nav-link" href="https://blog.paketo.io">blog</a>
                     <a class="nav-link" href="https://github.com/paketo-buildpacks">github</a>
                 </div>
@@ -72,9 +73,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
         <a class="nav-link nav-link--desktop  nav-link--desktop--active" href="/docs">docs</a>
         
         <a class="nav-link nav-link--desktop   " href="/community">community</a>
+        
+        <a class="nav-link nav-link--desktop   " href="/resources">resources</a>
         <a class="nav-link nav-link--desktop " href="https://blog.paketo.io">blog</a>
         <a class="nav-link nav-link--desktop " href="https://github.com/paketo-buildpacks">github</a>
     </div>
@@ -200,9 +204,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
     
         <li class="docs-menu__leaf">
+            <a href="/docs/howto/builders/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
             <a href="/docs/howto/configuration/" class="docs-menu__item docs-menu__link ">
                 
                 <span>Configure Paketo Buildpacks</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/howto/app-monitor/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Enable Application Monitoring</span>
             </a>
         </li>
     
@@ -335,6 +359,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <a href="/docs/reference/dotnet-core-reference/" class="docs-menu__item docs-menu__link ">
                 
                 <span>.NET Core Buildpack</span>
+            </a>
+        </li>
+    
+                
+                    
+    
+        <li class="docs-menu__leaf">
+            <a href="/docs/reference/builders-reference/" class="docs-menu__item docs-menu__link ">
+                
+                <span>Builders</span>
             </a>
         </li>
     
@@ -496,6 +530,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#with-pack-and-a-command-line-flag-7">With pack and a Command-Line Flag</a></li>
       </ul>
     </li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
   </ul>
 </nav>
 </div>
@@ -577,7 +612,7 @@ the buildpack will provide the default version, which can be seen in the
 [ build ]
   [[ build.env ]]
     name=&#34;BP_GO_VERSION&#34;
-    value=&#34;1.41.1&#34;
+    value=&#34;1.14.1&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -702,7 +737,7 @@ setting the <code>BP_GO_TARGETS</code> environment variable at build time.</p>
     <a class="markup-heading__link" href="#build-multiple-packages-in-one-app-image">
         Build Multiple Packages In One App Image
     </a>
-</h3><p>The <code>BP_GO_TARGETS</code> evironment variable can accept a colon-delimited list of
+</h3><p>The <code>BP_GO_TARGETS</code> environment variable can accept a colon-delimited list of
 target packages. Each binary will be set as a <a href="https://buildpacks.io/docs/app-developer-guide/run-an-app/">launch process</a> of the same name in
 the app image. The following examples will build <em>both</em> the <code>first</code> and <code>second</code> packages in the same multi-package app directory as <a href="#build-non-default-packages">above</a>.</p>
 <h4 id="with-pack-and-a-command-line-flag-4" class="markup-heading">
@@ -757,7 +792,10 @@ touch /tmp/git-binding/credentials
 structure</a>.  For example, to
 access a private module <code>github.com/private-org/private-module</code> with a
 Github username and service account key, add the following to
-<code>/tmp/git-binding/credentials</code>:
+<code>/tmp/git-binding/credentials</code>:</p>
+</li>
+</ol>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">url=https://github.com
 username=&lt;USERNAME&gt;
@@ -765,10 +803,10 @@ password=&lt;SERVICE ACCOUNT KEY&gt;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></p>
-</li>
-<li>
-<p>Provide the service binding and <code>$GOPRIVATE</code> environment variable at build
+</div>
+<!-- raw HTML omitted -->
+<ol>
+<li>Provide the service binding and <code>$GOPRIVATE</code> environment variable at build
 time:
 <div class="copyable">
     <pre class="copyable__code">pack build myapp --buildpack paketo-buildpacks/go \
@@ -778,8 +816,7 @@ time:
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></p>
-</li>
+</div></li>
 </ol>
 <p>You&rsquo;ll see that the build successfully pulls your app&rsquo;s private dependencies.
 The secrets stored in the service binding will <strong>not</strong> be stored in the built
@@ -910,7 +947,8 @@ adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
         In a <code>Tiltfile</code> with the <code>pack</code> resource
     </a>
 </h4><p>You can use the Paketo Go buildpack with <a href="https://tilt.dev/">Tilt</a>. This example
-uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt, and shows how to configure watched files.
+uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack"><code>pack</code> extension</a> for Tilt, and shows how to configure watched files.</p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">pack(&#39;my-app&#39;,
   buildpacks=[&#34;paketo-buildpacks/go&#34;],
@@ -918,8 +956,8 @@ uses the <a href="https://github.com/tilt-dev/tilt-extensions/tree/master/pack">
   env_vars=[&#34;BP_LIVE_RELOAD_ENABLED=true&#34;],
   deps=[&#39;./src/build&#39;],
   live_update=[
-    sync(&#39;./src/build&#39;, &#39;/workspace/build&#39;),
-    run(&#39;cp -rf /workspace/build/* /layers/paketo-buildpacks_go-build/targets/bin&#39;, trigger=[&#39;./src/build&#39;]),
+    sync(&#39;./src/build&#39;, &#39;/tmp/tilt&#39;)  ,      
+    run(&#39;cp -rf /tmp/tilt/* /layers/paketo-buildpacks_go-build/targets/bin&#39;, trigger=[&#39;./src/build&#39;]),
   ])
 
 # (Re)build locally when source code changes
@@ -932,7 +970,8 @@ local_resource(&#39;go-build&#39;,
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></p>
+</div>
+<!-- raw HTML omitted -->
 <h5 id="notes" class="markup-heading">
     <a class="markup-heading__link" href="#notes">
         Notes
@@ -995,24 +1034,44 @@ build-time SBOM.</p>
     </a>
 </h3><ol>
 <li>When building with the pack CLI, use the flag <code>--sbom-output-dir</code> to extract
-SBOMs from the build:
+SBOMs from the build:</li>
+</ol>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/go \
                   --sbom-output-dir /tmp/sbom-output
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></li>
+</div>
+<!-- raw HTML omitted -->
+<ol start="2">
 <li>To view the Go modules used in the build, inspect one of the SBOMs generated
 by the Go Mod Vendor buildpack. For instance, to view the SBOM as
-<a href="https://cyclonedx.org/">CycloneDX</a> JSON:
+<a href="https://cyclonedx.org/">CycloneDX</a> JSON:</li>
+</ol>
+<h2 id="enable-debug-logging" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-debug-logging">
+        Enable <code>DEBUG</code> logging
+    </a>
+</h2><p>Users of the Go buildpack can access extra debug logs during the image build process by setting the <code>BP_LOG_LEVEL</code>
+environment variable to <code>DEBUG</code> at build time. Additional debug logs will
+appear in build logs if the relevant buildpacks have debug log lines.
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/go \
+  --env BP_LOG_LEVEL=DEBUG
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
+<!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">cat /tmp/sbom-output/build/paketo-buildpacks_go-mod-vendor/sbom.cdx.json
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
-</div></li>
-</ol>
+</div>
+<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 
             </div>
@@ -1026,7 +1085,7 @@ by the Go Mod Vendor buildpack. For instance, to view the SBOM as
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> April 11, 2022</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -1075,6 +1134,7 @@ by the Go Mod Vendor buildpack. For instance, to view the SBOM as
         <li><a href="#with-pack-and-a-command-line-flag-7">With pack and a Command-Line Flag</a></li>
       </ul>
     </li>
+    <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
   </ul>
 </nav>
 </div>
@@ -1121,7 +1181,7 @@ by the Go Mod Vendor buildpack. For instance, to view the SBOM as
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.c491c441744ee95257c7169239f33323fea5c9c9cf91d4b391c552de275cc065.js"></script>
+</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>
