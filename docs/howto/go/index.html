@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
-
+<meta http-equiv="content-language" content="en" />
 
 <meta name="og:site_name" content="Paketo Buildpacks">
 <meta name="og:title" content="How to Build Go Apps with Paketo Buildpacks">
@@ -531,6 +531,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </ul>
     </li>
     <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
+    <li><a href="#use-workspace-modules">Use workspace modules</a></li>
   </ul>
 </nav>
 </div>
@@ -567,7 +568,7 @@ cd samples/go/mod
 <p>Use the pack CLI with the Paketo Go Buildpack to build the sample app.
 <div class="copyable">
     <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/go \
-  --builder paketobuildpacks/builder:base
+  --builder paketobuildpacks/builder-jammy-base
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -609,10 +610,12 @@ the buildpack will provide the default version, which can be seen in the
 </h4><p>When building with the pack CLI, create a <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor">project.toml</a> file in your app directory that sets <code>BP_GO_VERSION</code> at build time.
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
-    name=&#34;BP_GO_VERSION&#34;
-    value=&#34;1.14.1&#34;
+[ _ ]
+schema-version = &#34;0.2
+
+[[ io.buildpacks.build.env ]]
+  name=&#34;BP_GO_VERSION&#34;
+  value=&#34;1.14.1&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -648,10 +651,12 @@ environment variables at build time.</p>
 </h4><p>When building with the pack CLI, create a <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor">project.toml</a> file in your app directory that sets <code>BP_GO_BUILD_LDFLAGS</code> at build time. For example, to add <code>-ldflags=&quot;-X main.variable=some-value&quot;</code> to the build flagset, set the environment variable as follows:
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
-    name=&#34;BP_GO_BUILD_LDFLAGS&#34;
-    value=&#34;-X main.variable=some-value&#34;
+[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
+  name=&#34;BP_GO_BUILD_LDFLAGS&#34;
+  value=&#34;-X main.variable=some-value&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -681,10 +686,12 @@ environment variables at build time.</p>
 </h4><p>When building with the pack CLI, create a <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor">project.toml</a> file in your app directory that sets <code>BP_GO_BUILD_FLAGS</code> at build time. For example, to add <code>-buildmode=default -tags=paketo</code> to the build flagset, set the environment variable as follows:
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
-    name=&#34;BP_GO_BUILD_FLAGS&#34;
-    value=&#34;-buildmode=default -tags=paketo&#34;
+[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
+  name=&#34;BP_GO_BUILD_FLAGS&#34;
+  value=&#34;-buildmode=default -tags=paketo&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -724,10 +731,12 @@ setting the <code>BP_GO_TARGETS</code> environment variable at build time.</p>
 </h4><p>When building with the pack CLI, create a <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor">project.toml</a> file in your app directory that sets <code>BP_GO_TARGETS</code> at build time.
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
-    name=&#34;BP_GO_TARGETS&#34;
-    value=&#34;./second&#34;
+[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
+  name=&#34;BP_GO_TARGETS&#34;
+  value=&#34;./second&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -759,10 +768,12 @@ the app image. The following examples will build <em>both</em> the <code>first</
 </h4><p>When building with the pack CLI, create a <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor">project.toml</a> file in your app directory that sets <code>BP_GO_TARGETS</code> at build time.
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
-    name=&#34;BP_GO_TARGETS&#34;
-    value=&#34;./first:./second&#34;
+[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
+  name=&#34;BP_GO_TARGETS&#34;
+  value=&#34;./first:./second&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -857,10 +868,12 @@ directory structure looks like:</p>
 </h4><p>When building with the pack CLI, create a <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor">project.toml</a> file in your app directory that sets <code>$BP_GO_BUILD_IMPORT_PATH</code> at build time.
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
-    name=&#34;BP_GO_BUILD_IMPORT_PATH&#34;
-    value=&#34;github.com/app-developer/app-directory&#34;
+[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
+  name=&#34;BP_GO_BUILD_IMPORT_PATH&#34;
+  value=&#34;github.com/app-developer/app-directory&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -894,10 +907,12 @@ variable at build time.</p>
 </h4><p>When building with the pack CLI, create a <a href="https://buildpacks.io/docs/app-developer-guide/using-project-descriptor">project.toml</a> file in your app directory that sets <code>$BP_KEEP_FILES</code> at build time.
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
-    name=&#34;BP_KEEP_FILES&#34;
-    value=&#34;assets/*:public/*&#34;
+[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
+  name=&#34;BP_KEEP_FILES&#34;
+  value=&#34;assets/*:public/*&#34;
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -935,7 +950,10 @@ adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
         In a <code>project.toml</code> file
     </a>
 </h4><div class="copyable">
-    <pre class="copyable__code">[[ build.env ]]
+    <pre class="copyable__code">[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
   name = &#39;BP_LIVE_RELOAD_ENABLED&#39;
   value = &#39;true&#39;
 </pre>
@@ -1072,6 +1090,23 @@ appear in build logs if the relevant buildpacks have debug log lines.
     <div class="copyable__copied copied">Copied!</div>
 </div>
 <!-- raw HTML omitted -->
+<h2 id="use-workspace-modules" class="markup-heading">
+    <a class="markup-heading__link" href="#use-workspace-modules">
+        Use workspace modules
+    </a>
+</h2><p>Some projects depend on multi-module workspaces and use relative <code>replace</code> directives within the same repository.
+An example for this is <a href="https://github.com/cert-manager/cert-manager/tree/v1.13.3">cert-manager@v1.13.3</a>.
+In such case you may want to initialize and use workspace modules prior to building.</p>
+<p>With <code>BP_GO_WORK_USE</code> the Go buildpack can be configured to <code>go work use (...)</code> certain modules before building.</p>
+<div class="copyable">
+    <pre class="copyable__code">pack build my-app --buildpack paketo-buildpacks/go \
+  --env BP_GO_WORK_USE=./cmd/my-module \
+  --env BP_GO_TARGETS=./cmd/my-module
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
+<p>It will run <code>go work init</code> before running <code>go work use (...)</code>.</p>
 <!-- raw HTML omitted -->
 
             </div>
@@ -1085,7 +1120,7 @@ appear in build logs if the relevant buildpacks have debug log lines.
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> April 12, 2024</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -1135,6 +1170,7 @@ appear in build logs if the relevant buildpacks have debug log lines.
       </ul>
     </li>
     <li><a href="#enable-debug-logging">Enable <code>DEBUG</code> logging</a></li>
+    <li><a href="#use-workspace-modules">Use workspace modules</a></li>
   </ul>
 </nav>
 </div>
@@ -1181,7 +1217,7 @@ appear in build logs if the relevant buildpacks have debug log lines.
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
+</footer><script src="/js/main.b235c693f1a7c9edcf648755e8d8d2ca8a46f68644b76e61de68956407119b18.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
-
+<meta http-equiv="content-language" content="en" />
 
 <meta name="og:site_name" content="Paketo Buildpacks">
 <meta name="og:title" content="How to Build Java Apps with Paketo Buildpacks">
@@ -487,6 +487,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--mobile">
     <nav id="TableOfContents">
   <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
     <li><a href="#about-the-examples">About the Examples</a></li>
     <li><a href="#build-an-app-as-a-traditional-java-war-or-jar">Build an App as a Traditional Java WAR or JAR</a>
       <ul>
@@ -506,7 +507,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#build-from-source-1">Build From Source</a></li>
         <li><a href="#build-from-an-executable-jar">Build From an Executable JAR</a></li>
         <li><a href="#inspect-the-native-image-tools-version">Inspect the Native Image Tools Version</a></li>
-        <li><a href="#configure-the-graalvm-version">Configure the GraalVM Version</a></li>
         <li><a href="#use-an-alternative-java-native-image-toolkit">Use an Alternative Java Native Image Toolkit</a></li>
       </ul>
     </li>
@@ -546,6 +546,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <p>This documentation explains how to use the Paketo buildpacks
 to build Java applications for several common use-cases. For more in-depth
 description of the buildpacks&rsquo; behavior and configuration see the <a href="https://paketo.io/docs/reference/java-reference/">Paketo Java Buildpack</a> and <a href="https://paketo.io/docs/reference/java-native-image-reference/">Paketo Java Native Image Buildpack</a> reference documentation.</p>
+<h2 id="prerequisites" class="markup-heading">
+    <a class="markup-heading__link" href="#prerequisites">
+        Prerequisites
+    </a>
+</h2><p>The <a href="https://github.com/buildpacks/pack">pack CLI</a> is used throughout the examples. <code>pack</code> is just one of several Cloud Native Buildpack <a href="https://buildpacks.io/docs/concepts/components/platform/">platforms</a> than can execute builds with the Java Buildpacks. For example, Spring Boot developers may want to explore the <a href="https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/#build-image">Spring Boot Maven Plugin</a> or <a href="https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/html/#build-image">Spring Boot Gradle Plugin</a> .</p>
+<p>Examples assume that the <a href="https://paketo.io/docs/reference/builders-reference/">Paketo Base builder</a> is the default builder:
+<div class="copyable">
+    <pre class="copyable__code">pack config default-builder paketobuildpacks/builder-jammy-base
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div></p>
 <h2 id="about-the-examples" class="markup-heading">
     <a class="markup-heading__link" href="#about-the-examples">
         About the Examples
@@ -555,14 +567,6 @@ description of the buildpacks&rsquo; behavior and configuration see the <a href=
 <div class="copyable">
     <pre class="copyable__code">git clone https://github.com/paketo-buildpacks/samples
 cd samples
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></p>
-<p>The <a href="https://github.com/buildpacks/pack">pack CLI</a> is used throughout the examples. <code>pack</code> is just one of several Cloud Native Buildpack <a href="https://buildpacks.io/docs/concepts/components/platform/">platforms</a> than can execute builds with the Java Buildpacks. For example, Spring Boot developers may want to explore the <a href="https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/#build-image">Spring Boot Maven Plugin</a> or <a href="https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/html/#build-image">Spring Boot Gradle Plugin</a> .</p>
-<p>Examples assume that the <a href="https://paketo.io/docs/reference/builders-reference/">Paketo Base builder</a> is the default builder:
-<div class="copyable">
-    <pre class="copyable__code">pack config default-builder paketobuildpacks/builder:base
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -648,6 +652,32 @@ Artifact</a>.</p>
 <li><em>Defaults</em> to a tool-specific value (e.g. <code>-Dmaven.test.skip=true package</code> for Maven, <code>--no-daemon assemble</code> for Gradle). See component buildpack homepage for details.</li>
 <li>Configures the arguments to pass to the build tool.</li>
 <li><em>Example</em>: Given <code>BP_GRADLE_BUILD_ARGUMENTS=war</code>, the Paketo Gradle Buildpack will execute <code>./gradlew war</code> or <code>gradle war</code> (depending on the presence of the gradle wrapper).</li>
+</ul>
+</li>
+</ul>
+<p>Additionally, for <code>MAVEN</code>, we support two other environment variables at build-time:</p>
+<ul>
+<li>
+<p><code>BP_MAVEN_ADDITIONAL_BUILD_ARGUMENTS</code></p>
+<ul>
+<li>Configures additional arguments to pass to the maven build tool; it defaults to empty string and can be handy when you want to keep the default <code>BP_MAVEN_BUILD_ARGUMENTS</code> but just need one additional argument.</li>
+<li><em>Example</em>: Given <code>BP_MAVEN_ADDITIONAL_BUILD_ARGUMENTS=-DskipTool</code>, you could disable a plugin, without changing <code>BP_MAVEN_BUILD_ARGUMENTS</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>BP_MAVEN_ACTIVE_PROFILES</code></p>
+<ul>
+<li>Configures active profiles to pass to the maven build tool; it defaults to empty string and can be handy when you want to keep the default <code>BP_MAVEN_BUILD_ARGUMENTS</code> but just need several profiles (de)activated.</li>
+<li><em>Example</em>: Given <code>BP_MAVEN_ACTIVE_PROFILES=p1,!p2,?p3</code>, you could activate the <code>p1</code> profile, deactivate the <code>p2</code> profile, and optionally activate the <code>p3</code> profile, without changing <code>BP_MAVEN_BUILD_ARGUMENTS</code>.</li>
+</ul>
+</li>
+</ul>
+<p>And similarly, for <code>GRADLE</code>, we support one other environment variable at build-time:</p>
+<ul>
+<li><code>BP_GRADLE_ADDITIONAL_BUILD_ARGUMENTS</code>
+<ul>
+<li>Configures additional arguments to pass to the gradle build tool; it defaults to empty string and can be handy when you want to keep the default <code>BP_GRADLE_BUILD_ARGUMENTS</code> but just need one additional argument.</li>
+<li><em>Example</em>: Given <code>BP_GRADLE_ADDITIONAL_BUILD_ARGUMENTS=--no-build-cache</code>, you could disable build cache without changing <code>BP_GRADLE_BUILD_ARGUMENTS</code>.</li>
 </ul>
 </li>
 </ul>
@@ -743,7 +773,57 @@ Artifact</a>.</p>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
 </div>
-<p><strong>NOTE:</strong> It is important to properly quote values for <code>BP_INCLUDE_FILES</code> and <code>BP_EXCLUDE_FILES</code> as they may contain wild card characters like <code>*</code> which the shell my interpret. Proper quoting ensures the actual characters are passed through to the buildpack.</p>
+<p><strong>NOTE:</strong> It is important to properly quote values for <code>BP_INCLUDE_FILES</code> and <code>BP_EXCLUDE_FILES</code> as they may contain wild card characters like <code>*</code> which the shell may interpret. Proper quoting ensures the actual characters are passed through to the buildpack.</p>
+<!-- raw HTML omitted -->
+<h5 id="enable-maven-or-gradle-to-build-javascript-assets-with-nodeyarn" class="markup-heading">
+    <a class="markup-heading__link" href="#enable-maven-or-gradle-to-build-javascript-assets-with-nodeyarn">
+        Enable Maven or Gradle to build Javascript assets with Node/Yarn
+    </a>
+</h5><p>Build tools such as Maven &amp; Gradle can configure plugins &amp; tasks that build Javascript assets for the frontend part of an app. The Java Buildpack can now install the <code>node</code> and <code>yarn</code> binaries for build tools to use in such tasks.</p>
+<!-- raw HTML omitted -->
+<p>When building from source with the Maven or Gradle buildpacks, you can enable installation of Node and/or Yarn using the following environment variable:</p>
+<ul>
+<li><code>BP_JAVA_INSTALL_NODE</code> - set to <code>true</code> to enable, defaults to <code>false</code>.</li>
+</ul>
+<p>When this is set to <code>true</code>, the buildpack will check for the following files:</p>
+<ul>
+<li><code>yarn.lock</code> - both Yarn and Node will be installed via the <a href="https://github.com/paketo-buildpacks/yarn">Yarn Buildpack</a> &amp; <a href="https://github.com/paketo-buildpacks/node-engine">Node Engine Buildpack</a></li>
+<li><code>package.json</code> - only Node will be installed via the <a href="https://github.com/paketo-buildpacks/node-engine">Node Engine Buildpack</a></li>
+</ul>
+<p>By default, the above files are expected to be in the application root directory. You can configure a specific sub-directory for these files using the environment variable supported by the node-engine buildpack:</p>
+<ul>
+<li><code>BP_NODE_PROJECT_PATH</code> - see <a href="https://paketo.io/docs/howto/nodejs/#build-an-app-from-source-in-a-subdirectory">nodejs - Build an App from Source in a Subdirectory</a></li>
+</ul>
+<p>Example: Building a Java app &amp; installing Yarn dependencies</p>
+<p>Sample Maven Plugin configuration (pom.xml):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">&lt;plugin&gt;
+</span></span><span class="line"><span class="cl">&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">&lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">&lt;version&gt;${exec-maven.version}&lt;/version&gt;
+</span></span><span class="line"><span class="cl">  &lt;executions&gt;
+</span></span><span class="line"><span class="cl">      &lt;execution&gt;
+</span></span><span class="line"><span class="cl">      &lt;id&gt;exec-yarn-install&lt;/id&gt;
+</span></span><span class="line"><span class="cl">      &lt;phase&gt;generate-sources&lt;/phase&gt;
+</span></span><span class="line"><span class="cl">          &lt;goals&gt;
+</span></span><span class="line"><span class="cl">              &lt;goal&gt;exec&lt;/goal&gt;
+</span></span><span class="line"><span class="cl">          &lt;/goals&gt;
+</span></span><span class="line"><span class="cl">          &lt;configuration&gt;
+</span></span><span class="line"><span class="cl">              &lt;executable&gt;yarn&lt;/executable&gt;
+</span></span><span class="line"><span class="cl">              &lt;arguments&gt;
+</span></span><span class="line"><span class="cl">                  &lt;argument&gt;install&lt;/argument&gt;
+</span></span><span class="line"><span class="cl">              &lt;/arguments&gt;
+</span></span><span class="line"><span class="cl">          &lt;/configuration&gt;
+</span></span><span class="line"><span class="cl">      &lt;/execution&gt;
+</span></span><span class="line"><span class="cl">  &lt;/executions&gt;
+</span></span><span class="line"><span class="cl">&lt;/plugin&gt;
+</span></span></code></pre></div><p>Build Command:</p>
+<div class="copyable">
+    <pre class="copyable__code"> pack build samples/java
+--path java/maven-yarn --env BP_JAVA_INSTALL_NODE=true
+</pre>
+    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
+    <div class="copyable__copied copied">Copied!</div>
+</div>
 <h3 id="build-from-a-compiled-artifact" class="markup-heading">
     <a class="markup-heading__link" href="#build-from-a-compiled-artifact">
         Build from a Compiled Artifact
@@ -785,13 +865,7 @@ pack build samples/java \
     </a>
 </h3><p>The exact JRE version that was contributed to a given image can be read from the Bill-of-Materials.</p>
 <p><strong>Example</strong> Inspecting the JRE Version</p>
-<p>Given an image named <code>samples/java</code> built from one of examples above, the following command should print the exact version of the installed JRE.
-<div class="copyable">
-    <pre class="copyable__code">pack inspect-image samples/app --bom | jq &#39;.local[] | select(.name==&#34;jre&#34;) | .metadata.version&#39;
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></p>
+<p>Please refer to the <a href="/docs/howto/sbom/">Access the SBOM article</a> to find out how you can inspect the embedded JRE using SBOM information.</p>
 <h3 id="install-a-specific-jvm-version" class="markup-heading">
     <a class="markup-heading__link" href="#install-a-specific-jvm-version">
         Install a Specific JVM Version
@@ -800,12 +874,19 @@ pack build samples/java \
 <ul>
 <li><code>BP_JVM_VERSION</code>
 <ul>
-<li>Defaults to the latest 11.x version at the time of release.</li>
+<li>Defaults to the latest 17.x version at the time of release.</li>
 <li>Configures a specific JDK or JRE version (specify only the major version).</li>
 <li><em>Example</em>: Given <code>BP_JVM_VERSION=8</code> or <code>BP_JVM_VERSION=8.*</code> the buildpack will install the latest patch releases of the Java 8 JDK and JRE.</li>
 </ul>
 </li>
 </ul>
+<h4 id="jvm-default-version" class="markup-heading">
+    <a class="markup-heading__link" href="#jvm-default-version">
+        JVM Default Version
+    </a>
+</h4><p>The Java buildpack&rsquo;s default version will change periodically. The Paketo buildpack will change the default version of Java once the most recently released LTS version of Java is at least one year old. For example, Java 21 will release in September 2023. It will be added to the Paketo buildpacks immediately, but will not become the default until September 2024.</p>
+<p>Exceptions are permitted for a shorter change cycle when deemed sufficiently urgent by a majority vote of Java sub-team contributors and maintainers.</p>
+<p>When the default version of Java changes, the team will bump the major version of the Java buildpack and include details of the change in the release notes. In addition, the team will write a blog post and update our Slack channels prior to the change to alert community members of the upcoming change.</p>
 <h3 id="install-a-specific-jvm-type" class="markup-heading">
     <a class="markup-heading__link" href="#install-a-specific-jvm-type">
         Install a Specific JVM Type
@@ -893,17 +974,16 @@ pack build samples/java \
 </thead>
 <tbody>
 <tr>
-<td><a href="https://adoptium.net/">Adoptium</a> <span class="sup">1</span>
-</td>
+<td><a href="https://adoptium.net/">Adoptium</a></td>
 <td><a href="https://github.com/paketo-buildpacks/adoptium">Paketo Adoptium Buildpack</a></td>
 </tr>
 <tr>
-<td><a href="https://github.com/alibaba/dragonwell8">Alibaba Dragonwell</a> <span class="sup">2</span>
+<td><a href="https://github.com/alibaba/dragonwell8">Alibaba Dragonwell</a> <span class="sup">1</span>
 </td>
 <td><a href="https://github.com/paketo-buildpacks/alibaba-dragonwell">Paketo Alibaba Dragonwell Buildpack</a></td>
 </tr>
 <tr>
-<td><a href="https://aws.amazon.com/corretto/">Amazon Corretto</a> <span class="sup">2</span>
+<td><a href="https://aws.amazon.com/corretto/">Amazon Corretto</a> <span class="sup">1</span>
 </td>
 <td><a href="https://github.com/paketo-buildpacks/amazon-corretto">Paketo Amazon Corretto Buildpack</a></td>
 </tr>
@@ -920,18 +1000,18 @@ pack build samples/java \
 <td><a href="https://github.com/paketo-buildpacks/eclipse-openj9">Paketo Eclipse OpenJ9 Buildpack</a></td>
 </tr>
 <tr>
-<td><a href="https://www.graalvm.org/">GraalVM</a> <span class="sup">2</span>
+<td><a href="https://www.graalvm.org/">GraalVM</a> <span class="sup">1</span>
 </td>
 <td><a href="https://github.com/paketo-buildpacks/graalvm">Paketo GraalVM Buildpack</a></td>
 </tr>
 <tr>
-<td><a href="https://www.oracle.com/java/technologies/downloads/">Oracle JDK</a> <span class="sup">2</span>
- <span class="sup">3</span>
+<td><a href="https://www.oracle.com/java/technologies/downloads/">Oracle JDK</a> <span class="sup">1</span>
+ <span class="sup">2</span>
 </td>
 <td><a href="https://github.com/paketo-buildpacks/oracle">Paketo Oracle Buildpack</a></td>
 </tr>
 <tr>
-<td><a href="https://www.microsoft.com/openjdk">Microsoft OpenJDK</a> <span class="sup">2</span>
+<td><a href="https://www.microsoft.com/openjdk">Microsoft OpenJDK</a> <span class="sup">1</span>
 </td>
 <td><a href="https://github.com/paketo-buildpacks/microsoft-openjdk">Paketo Microsoft OpenJDK Buildpack</a></td>
 </tr>
@@ -943,11 +1023,9 @@ pack build samples/java \
 </table>
 <!-- raw HTML omitted -->
 <ol>
-<li><em><span class="sub">Only provides JRE and JDK releases for Java 8 and 11, Java 16+ is JDK only</span>
-</em></li>
 <li><em><span class="sub">Only provides JDK releases</span>
 </em></li>
-<li><em><span class="sub">Only provides Java 17</span>
+<li><em><span class="sub">Only provides Java 17+</span>
 </em></li>
 </ol>
 <p>To use an alternative JVM, you will need to set two <code>--buildpack</code> arguments to <code>pack build</code>, one for the alternative JVM buildpack you&rsquo;d like to use and one for the Paketo Java buildpack (in that order). This works because while you end up with two JVM buildpacks, the first one, the one you&rsquo;re specifying will claim the build plan entries so the second one will end up being a no-op and doing nothing.</p>
@@ -1058,66 +1136,9 @@ pack build samples/java-native \
     <a class="markup-heading__link" href="#inspect-the-native-image-tools-version">
         Inspect the Native Image Tools Version
     </a>
-</h3><p>The exact substrate VM version that was contributed to a given image can be read from the Bill-of-Materials.</p>
+</h3><p>The exact Native Image version that was contributed to a given image can be read from the Bill-of-Materials.</p>
 <p><strong>Example</strong> Inspecting the JRE Version</p>
-<p>Given an image named <code>samples/java-native</code> built from one of examples above, the following command will print the exact version of the installed substrate VM.
-<div class="copyable">
-    <pre class="copyable__code">pack inspect-image samples/java-native --bom | jq &#39;.local[] | select(.name==&#34;native-image-svm&#34;) | .metadata.version&#39;
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></p>
-<h3 id="configure-the-graalvm-version" class="markup-heading">
-    <a class="markup-heading__link" href="#configure-the-graalvm-version">
-        Configure the GraalVM Version
-    </a>
-</h3><p>Because GraalVM is evolving rapidly you may on occasion need to, for compatibility reasons, select a specific version of the GraalVM and associated tools to use when building an image. This is not a directly configurable option like the JVM version, however, you can pick a specific version by changing the version of the Java Native Image Buildpack you use.</p>
-<p>The following table documents the versions available.</p>
-<table>
-<thead>
-<tr>
-<th>GraalVM Version</th>
-<th>Java Native Image Buildpack Version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>22.2</td>
-<td>7.26.1</td>
-</tr>
-<tr>
-<td>22.1</td>
-<td>7.16.2</td>
-</tr>
-<tr>
-<td>22.0</td>
-<td>7.8.1</td>
-</tr>
-<tr>
-<td>21.3</td>
-<td>5.12.0</td>
-</tr>
-<tr>
-<td>21.2</td>
-<td>5.5.0</td>
-</tr>
-<tr>
-<td>21.1</td>
-<td>5.4.0</td>
-</tr>
-<tr>
-<td>21.0</td>
-<td>5.3.0</td>
-</tr>
-</tbody>
-</table>
-<p>For example, to select GraalVM 22.1:</p>
-<div class="copyable">
-    <pre class="copyable__code">pack build samples/native -e BP_NATIVE_IMAGE=true --buildpack paketo-buildpacks/ca-certificates --buildpack paketo-buildpacks/java-native-image@7.16.2
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div>
+<p>Please refer to the <a href="/docs/howto/sbom/">Access the SBOM article</a> to find out how you can inspect the JRE using SBOM information.</p>
 <h3 id="use-an-alternative-java-native-image-toolkit" class="markup-heading">
     <a class="markup-heading__link" href="#use-an-alternative-java-native-image-toolkit">
         Use an Alternative Java Native Image Toolkit
@@ -1133,16 +1154,20 @@ pack build samples/java-native \
 <tbody>
 <tr>
 <td><a href="https://bell-sw.com/pages/liberica-native-image-kit/">BellSoft Liberica</a></td>
-<td><a href="https://github.com/paketo-buildpacks/bellsoft-liberica">Paketo BellSoft Liberica Buildpack</a></td>
+<td><a href="https://github.com/paketo-buildpacks/bellsoft-liberica">Paketo Buildpack for BellSoft Liberica</a></td>
 </tr>
 <tr>
-<td><a href="https://www.graalvm.org/docs/introduction/">GraalVM</a></td>
-<td><a href="https://github.com/paketo-buildpacks/graalvm">Paketo GraalVM Buildpack</a></td>
+<td><a href="https://www.graalvm.org/docs/introduction/">GraalVM Community Edition</a></td>
+<td><a href="https://github.com/paketo-buildpacks/graalvm">Paketo Buildpack for GraalVM Community Edition</a></td>
+</tr>
+<tr>
+<td><a href="https://www.oracle.com/java/graalvm/">Oracle GraalVM</a></td>
+<td><a href="https://github.com/paketo-buildpacks/oracle">Paketo Buildpack for Oracle</a></td>
 </tr>
 </tbody>
 </table>
 <p>To use an alternative Java Native Image Toolkit, you will need to set two <code>--buildpack</code> arguments to <code>pack build</code>, one for the alternative Java Native Image Toolkit buildpack you&rsquo;d like to use and one for the Paketo Java Native Image buildpack (in that order). This works because while you end up with two Java Native Image Toolkit buildpacks, the first one, the one you&rsquo;re specifying will claim the build plan entries so the second one will end up being a no-op and doing nothing.</p>
-<p>This example will switch in the GraalVM buildpack:</p>
+<p>This example will switch in the GraalVM Community Edition buildpack:</p>
 <!-- raw HTML omitted -->
 <div class="copyable">
     <pre class="copyable__code">pack build samples/native-image --buildpack paketo-buildpacks/graalvm --buildpack paketo-buildpacks/java-native-image`
@@ -1169,13 +1194,7 @@ pack build samples/java-native \
     <a class="markup-heading__link" href="#inspect-spring-boot-application-dependencies">
         Inspect Spring Boot Application Dependencies
     </a>
-</h3><p>The following command uses <code>pack</code> to list every dependency of a sample application.
-<div class="copyable">
-    <pre class="copyable__code">pack inspect-image samples/java --bom | jq &#39;.local[] | select(.name==&#34;dependencies&#34;) | .metadata.dependencies[].name&#39;
-</pre>
-    <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
-    <div class="copyable__copied copied">Copied!</div>
-</div></p>
+</h3><p>Please refer to the <a href="/docs/howto/sbom/">Access the SBOM article</a> to find out how you can inspect the Spring Boot application dependencies using SBOM information.</p>
 <h3 id="disable-spring-boot-auto-configuration" class="markup-heading">
     <a class="markup-heading__link" href="#disable-spring-boot-auto-configuration">
         Disable Spring Boot Auto-Configuration
@@ -1459,12 +1478,13 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> April 12, 2024</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
     <nav id="TableOfContents">
   <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
     <li><a href="#about-the-examples">About the Examples</a></li>
     <li><a href="#build-an-app-as-a-traditional-java-war-or-jar">Build an App as a Traditional Java WAR or JAR</a>
       <ul>
@@ -1484,7 +1504,6 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
         <li><a href="#build-from-source-1">Build From Source</a></li>
         <li><a href="#build-from-an-executable-jar">Build From an Executable JAR</a></li>
         <li><a href="#inspect-the-native-image-tools-version">Inspect the Native Image Tools Version</a></li>
-        <li><a href="#configure-the-graalvm-version">Configure the GraalVM Version</a></li>
         <li><a href="#use-an-alternative-java-native-image-toolkit">Use an Alternative Java Native Image Toolkit</a></li>
       </ul>
     </li>
@@ -1562,7 +1581,7 @@ The following command will print value of <code>$JAVA_TOOL_OPTIONS</code> set by
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
+</footer><script src="/js/main.b235c693f1a7c9edcf648755e8d8d2ca8a46f68644b76e61de68956407119b18.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

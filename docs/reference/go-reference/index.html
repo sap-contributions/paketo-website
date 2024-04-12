@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
-
+<meta http-equiv="content-language" content="en" />
 
 <meta name="og:site_name" content="Paketo Buildpacks">
 <meta name="og:title" content="Go Buildpack Reference">
@@ -559,8 +559,8 @@ require third-party packages. In this case there is no vendoring step, and the
         Compilation
     </a>
 </h3><p>The buildpack runs <code>go build</code> to compile Go source code into executables. By
-default, it sets the flag <code>-buildmode=pie</code>. If there is a <code>go.mod</code> present in
-the app&rsquo;s root directory, it also builds with <code>mod=vendor</code>. See the Go tool&rsquo;s <a href="https://pkg.go.dev/cmd/go">documentation</a> for details about build configuration.</p>
+default, it sets the flag <code>-buildmode=pie</code>. See the Go tool&rsquo;s <a href="https://pkg.go.dev/cmd/go">documentation</a>
+for details about build configuration.</p>
 <h2 id="buildpack-set-environment-variables" class="markup-heading">
     <a class="markup-heading__link" href="#buildpack-set-environment-variables">
         Buildpack-Set Environment Variables
@@ -703,7 +703,7 @@ This SBOM does not include Go module information.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> April 12, 2024</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -770,7 +770,7 @@ This SBOM does not include Go module information.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
+</footer><script src="/js/main.b235c693f1a7c9edcf648755e8d8d2ca8a46f68644b76e61de68956407119b18.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

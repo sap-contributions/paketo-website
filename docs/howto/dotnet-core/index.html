@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
-
+<meta http-equiv="content-language" content="en" />
 
 <meta name="og:site_name" content="Paketo Buildpacks">
 <meta name="og:title" content="How to Build .NET Core Apps with Paketo Buildpacks">
@@ -554,7 +554,7 @@ Reference <a href="/docs/reference/dotnet-core-reference">documentation</a>.</p>
     <pre class="copyable__code">git clone https://github.com/paketo-buildpacks/samples
 cd samples/dotnet-core/aspnet
 pack build my-app --buildpack paketo-buildpacks/dotnet-core \
-  --builder paketobuildpacks/builder:base
+  --builder paketobuildpacks/builder-jammy-base
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
     <div class="copyable__copied copied">Copied!</div>
@@ -570,7 +570,7 @@ also compatible with the Paketo Full builder.</strong></p>
 </h2><p>The .NET Core Runtime and .NET Core ASP.NET Buildpacks allow you to specify a
 version of the .NET Core Runtime and ASP.NET to use during deployment. This
 version can be specified in several ways including through a
-<code>runtimeconfig.json</code>, MSBuild Project file, or build-time environment
+<code>runtimeconfig.json</code>, MSBuild Project file (e.g. <code>*.csproj</code>, <code>*.fsproj</code>, or <code>*.vbproj</code>), or build-time environment
 variables. When specifying a version of the .NET Core Runtime and ASP.NET, you
 must choose a version that is available within these buildpacks. These versions
 can be found in the <a href="
@@ -606,7 +606,10 @@ Cloud Native Buildpacks <a href="https://buildpacks.io/docs/app-developer-guide/
         In a <code>project.toml</code> file
     </a>
 </h4><div class="copyable">
-    <pre class="copyable__code">[[ build.env ]]
+    <pre class="copyable__code">[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
   name = &#39;BP_DOTNET_FRAMEWORK_VERSION&#39;
   value = &#39;5.0.4&#39;
 </pre>
@@ -642,7 +645,7 @@ Core Runtime v2.1.14 when deploying your app, include the values below in your
     <a class="markup-heading__link" href="#using-a-project-file">
         Using a Project file
     </a>
-</h3><p>If you are using a Project file (e.g. <code>*.csproj</code>, <code>*.fsproj</code>, or <code>*.vbproj</code>), you can specify
+</h3><p>If you are using an MSBuild Project file (e.g. <code>*.csproj</code>, <code>*.fsproj</code>, or <code>*.vbproj</code>), you can specify
 the .NET Core Runtime version within that file. To configure the buildpack to
 use .NET Core Runtime v2.1.14 when deploying your app, include the values below
 in your Project file:</p>
@@ -761,7 +764,10 @@ to learn more about <code>project.toml</code> files.</p>
         In a <code>project.toml</code> file
     </a>
 </h4><div class="copyable">
-    <pre class="copyable__code">[[ build.env ]]
+    <pre class="copyable__code">[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
   name = &#39;BP_DOTNET_PROJECT_PATH&#39;
   value = &#39;./App&#39;
 </pre>
@@ -805,8 +811,10 @@ v1.0.0. To migrate from using <code>buildpack.yml</code>, please set the
 </h4><p>When building with the pack CLI, create a [project.toml][cnb/project-file] file in your app directory that sets <code>BP_DOTNET_PUBLISH_FLAGS</code> at build time. For example, to add <code>--verbosity=normal</code> and <code>--self-contained=true</code> to the build flagset, set the environment variable as follows:
 <div class="copyable">
     <pre class="copyable__code"># project.toml
-[ build ]
-  [[ build.env ]]
+[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
     name=&#34;BP_DOTNET_PUBLISH_FLAGS&#34;
     value=&#34;--verbosity=normal --self-contained=true&#34;
 </pre>
@@ -882,7 +890,10 @@ adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
         In a <code>project.toml</code> file
     </a>
 </h4><div class="copyable">
-    <pre class="copyable__code">[[ build.env ]]
+    <pre class="copyable__code">[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
   name = &#39;BP_LIVE_RELOAD_ENABLED&#39;
   value = &#39;true&#39;
 </pre>
@@ -986,7 +997,10 @@ by adding it to your <code>project.toml</code>. See the Cloud Native Buildpacks
     </a>
 </h4><!-- raw HTML omitted -->
 <div class="copyable">
-    <pre class="copyable__code">[[ build.env ]]
+    <pre class="copyable__code">[ _ ]
+schema-version = &#34;0.2&#34;
+
+[[ io.buildpacks.build.env ]]
   name = &#39;BP_DEBUG_ENABLED&#39;
   value = &#39;true&#39;
 </pre>
@@ -1124,7 +1138,7 @@ section of our configuration docs.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> April 12, 2024</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -1224,7 +1238,7 @@ section of our configuration docs.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
+</footer><script src="/js/main.b235c693f1a7c9edcf648755e8d8d2ca8a46f68644b76e61de68956407119b18.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

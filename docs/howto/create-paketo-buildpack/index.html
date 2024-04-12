@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
-
+<meta http-equiv="content-language" content="en" />
 
 <meta name="og:site_name" content="Paketo Buildpacks">
 <meta name="og:title" content="Create a Paketo Buildpack">
@@ -644,7 +644,7 @@ to build the app:</p>
     <pre class="copyable__code">pack build &lt;app-name&gt; \
   --path &lt;path/to/app&gt; \
   --buildpack &lt;path/to/project&gt; \
-  --builder paketobuildpacks/builder:base \
+  --builder paketobuildpacks/builder-jammy-base \
   --verbose
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
@@ -721,7 +721,7 @@ should get something that look like this:</p>
 pack build &lt;app-name&gt; \
   --path &lt;path/to/app&gt; \
   --buildpack &lt;path/to/project&gt; \
-  --builder paketobuildpacks/builder:base \
+  --builder paketobuildpacks/builder-jammy-base \
   --verbose
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
@@ -802,7 +802,7 @@ then by running the following command to build your <code>build</code> binary an
 pack build &lt;app-name&gt; \
   --path &lt;path/to/app&gt; \
   --buildpack &lt;path/to/project&gt; \
-  --builder paketobuildpacks/builder:base \
+  --builder paketobuildpacks/builder-jammy-base \
   --verbose
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
@@ -900,7 +900,7 @@ func Build() packit.BuildFunc {
 pack build &lt;app-name&gt; \
   --path &lt;path/to/app&gt; \
   --buildpack &lt;path/to/project&gt; \
-  --builder paketobuildpacks/builder:base \
+  --builder paketobuildpacks/builder-jammy-base \
   --verbose
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
@@ -1086,7 +1086,7 @@ you will finally have your first successful build, HOORAY!</p>
 pack build &lt;app-name&gt; \
   --path &lt;path/to/app&gt; \
   --buildpack &lt;path/to/project&gt; \
-  --builder paketobuildpacks/builder:base \
+  --builder paketobuildpacks/builder-jammy-base \
   --verbose
 </pre>
     <img class="copyable__clipboard" src="/images/clipboard.svg" alt="copy to clipboard" />
@@ -1140,7 +1140,7 @@ browser. Either way you should expect to see &ldquo;hello world&rdquo; as your o
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> April 12, 2024</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -1201,7 +1201,7 @@ browser. Either way you should expect to see &ldquo;hello world&rdquo; as your o
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
+</footer><script src="/js/main.b235c693f1a7c9edcf648755e8d8d2ca8a46f68644b76e61de68956407119b18.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

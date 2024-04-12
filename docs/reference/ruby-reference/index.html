@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
-
+<meta http-equiv="content-language" content="en" />
 
 <meta name="og:site_name" content="Paketo Buildpacks">
 <meta name="og:title" content="Ruby Buildpack Reference">
@@ -496,6 +496,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </ul>
     </li>
     <li><a href="#rails-asset-pipeline">Rails Asset Pipeline</a></li>
+    <li><a href="#reproducible-builds-and-limitations">Reproducible Builds and Limitations</a></li>
     <li><a href="#vendored-gem-behavior">Vendored Gem Behavior</a></li>
     <li><a href="#buildpack-set-environment-variables">Buildpack-Set Environment Variables</a>
       <ul>
@@ -566,6 +567,17 @@ application will be assigned when building your application container.</p>
 with any of the supported Ruby webservers listed above. The Paketo Ruby
 Buildpack pulls in this buildpack, as well as the <a href="https://github.com/paketo-buildpacks/node-engine">Paketo Node Engine
 Buildpack</a> to support asset compilation.</p>
+<h2 id="reproducible-builds-and-limitations" class="markup-heading">
+    <a class="markup-heading__link" href="#reproducible-builds-and-limitations">
+        Reproducible Builds and Limitations
+    </a>
+</h2><p>The Paketo Ruby Buildpack supports reproducible builds for <strong>most</strong> use cases,
+meaning application images produced with identical inputs will produce images
+with the same digests.</p>
+<p>Builds that leverage the Paketo Rails Assets Buildpack <strong>are unfortunately NOT
+reproducible</strong>, due to limitations in the Rails implementation related to the
+usage of the <code>sprockets</code> gem. There is no known workaround for this limitation,
+unless the Rails project itself undergoes changes to enable reproducible builds.</p>
 <h2 id="vendored-gem-behavior" class="markup-heading">
     <a class="markup-heading__link" href="#vendored-gem-behavior">
         Vendored Gem Behavior
@@ -629,7 +641,7 @@ the SBOM for your Ruby app image.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> April 12, 2024</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -644,6 +656,7 @@ the SBOM for your Ruby app image.</p>
       </ul>
     </li>
     <li><a href="#rails-asset-pipeline">Rails Asset Pipeline</a></li>
+    <li><a href="#reproducible-builds-and-limitations">Reproducible Builds and Limitations</a></li>
     <li><a href="#vendored-gem-behavior">Vendored Gem Behavior</a></li>
     <li><a href="#buildpack-set-environment-variables">Buildpack-Set Environment Variables</a>
       <ul>
@@ -698,7 +711,7 @@ the SBOM for your Ruby app image.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
+</footer><script src="/js/main.b235c693f1a7c9edcf648755e8d8d2ca8a46f68644b76e61de68956407119b18.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>

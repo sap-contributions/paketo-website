@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
 
 
-
+<meta http-equiv="content-language" content="en" />
 
 <meta name="og:site_name" content="Paketo Buildpacks">
 <meta name="og:title" content="NGINX Buildpack Reference">
@@ -491,11 +491,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li><a href="#supported-environment-variable-configuration">Supported Environment Variable Configuration</a>
       <ul>
         <li><a href="#bp_live_reload_enabled">BP_LIVE_RELOAD_ENABLED</a></li>
-        <li><a href="#bp_httpd_version">BP_HTTPD_VERSION</a></li>
+        <li><a href="#bp_nginx_version">BP_NGINX_VERSION</a></li>
         <li><a href="#bp_web_server">BP_WEB_SERVER</a></li>
         <li><a href="#bp_web_server_root">BP_WEB_SERVER_ROOT</a></li>
+        <li><a href="#bp_web_server_location_path">BP_WEB_SERVER_LOCATION_PATH</a></li>
         <li><a href="#bp_web_server_enable_push_state">BP_WEB_SERVER_ENABLE_PUSH_STATE</a></li>
         <li><a href="#bp_web_server_force_https">BP_WEB_SERVER_FORCE_HTTPS</a></li>
+        <li><a href="#bp_nginx_stub_status_port">BP_NGINX_STUB_STATUS_PORT</a></li>
       </ul>
     </li>
     <li><a href="#supported-service-bindings">Supported Service Bindings</a>
@@ -533,16 +535,16 @@ notes</a>.</p>
         BP_LIVE_RELOAD_ENABLED
     </a>
 </h3><p>Enables reloadable processes.</p>
-<h3 id="bp_httpd_version" class="markup-heading">
-    <a class="markup-heading__link" href="#bp_httpd_version">
-        BP_HTTPD_VERSION
+<h3 id="bp_nginx_version" class="markup-heading">
+    <a class="markup-heading__link" href="#bp_nginx_version">
+        BP_NGINX_VERSION
     </a>
-</h3><p>Allows you to specify the version of Apache HTTP Server that is installed.</p>
+</h3><p>Allows you to specify the version of the NGINX Server that is installed.</p>
 <h3 id="bp_web_server" class="markup-heading">
     <a class="markup-heading__link" href="#bp_web_server">
         BP_WEB_SERVER
     </a>
-</h3><p>When the value is set to <code>httpd</code> the buildpack will generate a default <code>httpd.conf</code>.</p>
+</h3><p>When the value is set to <code>nginx</code> the buildpack will generate a default <code>nginx.conf</code>.</p>
 <h3 id="bp_web_server_root" class="markup-heading">
     <a class="markup-heading__link" href="#bp_web_server_root">
         BP_WEB_SERVER_ROOT
@@ -550,6 +552,11 @@ notes</a>.</p>
 </h3><p>Defaults to <code>public</code>, setting this allows you to modify the location of the
 static files served by the web server with either an absolute file path or a
 file path relative to <code>/workspace</code>.</p>
+<h3 id="bp_web_server_location_path" class="markup-heading">
+    <a class="markup-heading__link" href="#bp_web_server_location_path">
+        BP_WEB_SERVER_LOCATION_PATH
+    </a>
+</h3><p>Set server&rsquo;s location directive.</p>
 <h3 id="bp_web_server_enable_push_state" class="markup-heading">
     <a class="markup-heading__link" href="#bp_web_server_enable_push_state">
         BP_WEB_SERVER_ENABLE_PUSH_STATE
@@ -561,11 +568,16 @@ file path relative to <code>/workspace</code>.</p>
     </a>
 </h3><p>Allows you to enforce HTTPS for server connections by redirecting all requests
 to use the HTTPS protocol.</p>
+<h3 id="bp_nginx_stub_status_port" class="markup-heading">
+    <a class="markup-heading__link" href="#bp_nginx_stub_status_port">
+        BP_NGINX_STUB_STATUS_PORT
+    </a>
+</h3><p>Gets NGINX basic status info via <a href="https://nginx.org/en/docs/http/ngx_http_stub_status_module.html#stub_status"><code>stub_status</code></a>.</p>
 <h2 id="supported-service-bindings" class="markup-heading">
     <a class="markup-heading__link" href="#supported-service-bindings">
         Supported Service Bindings
     </a>
-</h2><p>The HTTPD buildpack can be configured using <a href="https://paketo.io/docs/howto/configuration/#bindings">service bindings</a>.</p>
+</h2><p>The NGINX buildpack can be configured using <a href="https://paketo.io/docs/howto/configuration/#bindings">service bindings</a>.</p>
 <h4 id="heading" class="markup-heading">
     <a class="markup-heading__link" href="#heading">
         
@@ -619,7 +631,7 @@ NGINX server with a default configuration.</p>
     </div>
 </a>
 
-            <p class="docs-mod-time"><strong>Last modified:</strong> March 23, 2023</p>
+            <p class="docs-mod-time"><strong>Last modified:</strong> April 12, 2024</p>
         </div>
         
 <div class="docs-body__table-of-contents-container docs-body__table-of-contents-container--desktop">
@@ -629,11 +641,13 @@ NGINX server with a default configuration.</p>
     <li><a href="#supported-environment-variable-configuration">Supported Environment Variable Configuration</a>
       <ul>
         <li><a href="#bp_live_reload_enabled">BP_LIVE_RELOAD_ENABLED</a></li>
-        <li><a href="#bp_httpd_version">BP_HTTPD_VERSION</a></li>
+        <li><a href="#bp_nginx_version">BP_NGINX_VERSION</a></li>
         <li><a href="#bp_web_server">BP_WEB_SERVER</a></li>
         <li><a href="#bp_web_server_root">BP_WEB_SERVER_ROOT</a></li>
+        <li><a href="#bp_web_server_location_path">BP_WEB_SERVER_LOCATION_PATH</a></li>
         <li><a href="#bp_web_server_enable_push_state">BP_WEB_SERVER_ENABLE_PUSH_STATE</a></li>
         <li><a href="#bp_web_server_force_https">BP_WEB_SERVER_FORCE_HTTPS</a></li>
+        <li><a href="#bp_nginx_stub_status_port">BP_NGINX_STUB_STATUS_PORT</a></li>
       </ul>
     </li>
     <li><a href="#supported-service-bindings">Supported Service Bindings</a>
@@ -688,7 +702,7 @@ NGINX server with a default configuration.</p>
         <img class="cloudfoundry-logo" src="/v2/images/logo-cloudfoundry-light.svg" alt="Cloud Foundry logo" />
         <a class="footer-text--small text--light" href="https://linuxfoundation.org/privacy-policy/">Privacy Policy</a>
     </div>
-</footer><script src="/js/main.646df62d2173bd6e8ba4d12b17791155d925a1e19def628da682abd9bfbd6421.js"></script>
+</footer><script src="/js/main.b235c693f1a7c9edcf648755e8d8d2ca8a46f68644b76e61de68956407119b18.js"></script>
 
     <div id="footer-skip-link" class="screenreader-container">
     <a href="#header-skip-link" class="screenreader-text">Skip to Header</a>
